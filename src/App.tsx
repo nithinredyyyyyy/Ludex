@@ -1261,7 +1261,15 @@ function TournamentStandings({
                 (row.name === "HiggBoson Esports" &&
                   entry.name === "GoSolo Higgboson"),
             );
-            const logoUrl = team?.logoUrl ?? participant?.logoUrl;
+            const blockedExternalLogos = new Set([
+              "Team 8BIT",
+              "iQOO 8Bit",
+              "Revenant XSpark",
+              "iQOO Revenant XSpark",
+            ]);
+            const logoUrl = blockedExternalLogos.has(row.name)
+              ? undefined
+              : (team?.logoUrl ?? participant?.logoUrl);
             const initials = row.name
               .split(/\s+/)
               .map((part) => part[0])
@@ -2433,17 +2441,20 @@ function TournamentDetail({
             <h2 className="wiki-heading">Results</h2>
             {item.status === "Live now" && item.asOf && (
               <p className="results-snapshot-note" role="note">
-                Snapshot · data as of {item.asOf}. These are not live standings
-                and may have changed since this update.
+                Archived snapshot · checked {item.asOf}. These standings are not
+                live and may have changed since capture. The event summary lists
+                27 scheduled matches while the selected group tables show 16
+                Group A and 12 Group B matches; the source summary and group
+                counts differ by one.
               </p>
             )}
             {item.id === "cegc-2026" ? (
               <>
                 <ResultSubsection
-                  title="Group A · Phase 1 · 12 matches"
+                  title="Group A · Phase 1 · 16 matches"
                   id="result-group-a"
                   rows={cegcGroupAStandings}
-                  matchesPlayed={12}
+                  matchesPlayed={16}
                   note="Group A standings are not available yet."
                 />
                 <ResultSubsection

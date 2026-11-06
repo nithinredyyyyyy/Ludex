@@ -2,7 +2,12 @@ import { cleanup, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it } from "vitest";
 import App from "./App";
-import { teams, tournaments } from "./data";
+import {
+  cegcGroupAStandings,
+  cegcGroupBStandings,
+  teams,
+  tournaments,
+} from "./data";
 import { playerProfiles } from "./data/players";
 import { getSitemapPaths, sitemapRouteExists } from "./sitemap";
 
@@ -237,6 +242,55 @@ describe("CORE Esports navigation and workflows", () => {
 });
 
 describe("mock data integrity", () => {
+  it("keeps the verified CEGC snapshot timestamp and standings data explicit", () => {
+    const cegc = tournaments.find((item) => item.id === "cegc-2026");
+    expect(cegc?.asOf).toContain("Nov 6, 2026, 4:00:10 PM IST");
+    expect(cegc?.matches).toBe(27);
+    expect(cegcGroupAStandings).toHaveLength(16);
+    expect(cegcGroupBStandings).toHaveLength(16);
+    const rows = (items: typeof cegcGroupAStandings) =>
+      items.map(
+        ({ rank, name, points, wins, placementPoints, eliminations }) =>
+          [rank, name, points, wins, placementPoints, eliminations] as const,
+      );
+    expect(rows(cegcGroupAStandings)).toEqual([
+      [1, "Team Tamilas", 133, 1, 47, 86],
+      [2, "Myth Official", 121, 2, 42, 79],
+      [3, "Unsigned Esports", 120, 0, 38, 82],
+      [4, "Raven Esports", 119, 1, 52, 67],
+      [5, "Epigrotive Gaming", 113, 2, 46, 67],
+      [6, "Team Apex Gaming", 110, 2, 39, 71],
+      [7, "RSPT Official", 104, 3, 52, 52],
+      [8, "HiggBoson Esports", 93, 1, 38, 55],
+      [9, "K9 Esports", 92, 1, 26, 66],
+      [10, "Gladiators Esports", 91, 1, 27, 64],
+      [11, "iQOO 8Bit", 86, 1, 21, 65],
+      [12, "VR1 Esports", 79, 1, 20, 59],
+      [13, "Vasista Esports", 78, 0, 20, 58],
+      [14, "4TR Official", 69, 0, 23, 46],
+      [15, "Lastade Esports", 64, 0, 19, 45],
+      [16, "MadKings", 28, 0, 2, 26],
+    ]);
+    expect(rows(cegcGroupBStandings)).toEqual([
+      [1, "Team Outrage", 113, 2, 44, 69],
+      [2, "Nebula Esports", 107, 1, 28, 79],
+      [3, "GodLike Esports", 101, 2, 48, 53],
+      [4, "iQOO Revenant XSpark", 98, 1, 35, 63],
+      [5, "GoSolo Rapid Chaos", 76, 1, 28, 48],
+      [6, "iQOO Orangutan", 75, 0, 14, 61],
+      [7, "Blue Army", 74, 2, 30, 44],
+      [8, "Team AX", 69, 0, 29, 40],
+      [9, "Wyld Fangs", 66, 0, 24, 42],
+      [10, "Genesis Esports", 58, 1, 22, 36],
+      [11, "Santa Esports Titans", 57, 1, 22, 35],
+      [12, "Blitz Esports", 56, 0, 16, 40],
+      [13, "Thunder Hawks", 55, 0, 13, 42],
+      [14, "Mysterious4 Esports", 55, 0, 12, 43],
+      [15, "Welt Esports", 41, 1, 14, 27],
+      [16, "Meta Ninza", 36, 0, 5, 31],
+    ]);
+  });
+
   it("includes only routes backed by app data in the sitemap input", () => {
     const paths = getSitemapPaths();
     expect(new Set(paths).size).toBe(paths.length);

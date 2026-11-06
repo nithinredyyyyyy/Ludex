@@ -2,11 +2,13 @@
 
 The app sets a canonical URL, title, description, Open Graph fields, Twitter
 card fields, and `og:url` after client-side navigation. The canonical base is
-defined once as `canonicalBaseUrl` in `src/sitemap.ts`.
+defined once as `canonicalBaseUrl` in `src/seo-config.ts` and imported by the
+sitemap generator.
 
 Route metadata is client-side only. Non-JavaScript crawlers and social preview
 scrapers receive the default metadata in `index.html`; prerendering or
-server-side rendering would be required for fully route-specific previews.
+server-side rendering is required for route-specific previews and structured
+data in those clients.
 Unknown routes add `noindex` while the not-found view is active and remove it
 again after navigation.
 
