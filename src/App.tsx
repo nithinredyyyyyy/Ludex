@@ -151,73 +151,76 @@ function HomePage({ favorites, toggleFavorite }: { favorites: string[]; toggleFa
   </div>
 }
 
-const pickemFixtures = [
-  { id: 'match-1', label: 'Match 1', map: 'Erangel', ranks: [1, 2] as const },
-  { id: 'match-2', label: 'Match 2', map: 'Miramar', ranks: [3, 4] as const },
-  { id: 'match-3', label: 'Match 3', map: 'Rondo', ranks: [5, 6] as const },
-  { id: 'match-4', label: 'Match 4', map: 'Sanhok', ranks: [7, 8] as const },
-]
-
 function PickemsPage() {
-  const activeTournaments = tournaments.filter((item) => item.status !== 'Completed')
-  const [eventId, setEventId] = useState(() => activeTournaments[0]?.id ?? tournaments[0]?.id ?? '')
-  const [picks, setPicks] = useState<Record<string, string>>(() => {
-    try { const saved: unknown = JSON.parse(localStorage.getItem('core-pickems-picks') ?? '{}'); return saved && typeof saved === 'object' && !Array.isArray(saved) ? saved as Record<string, string> : {} }
+  const liveTournaments = tournaments.filter((item) => item.status === 'Live now' && (tournamentParticipants[item.id]?.length ?? 0) > 0)
+  const [eventId, setEventId] = useState(() => liveTournaments[0]?.id ?? '')
+  const [picks, setPicks] = useState<Record<string, Record<string, string>>>(() => {
+    try { const stored: unknown = JSON.parse(localStorage.getItem('core-live-pickems-v1') ?? '{}'); return stored && typeof stored === 'object' && !Array.isArray(stored) ? stored as Record<string, Record<string, string>> : {} }
     catch { return {} }
   })
   const [submittedEvents, setSubmittedEvents] = useState<string[]>(() => {
-    try { const saved: unknown = JSON.parse(localStorage.getItem('core-pickems-submitted') ?? '[]'); return Array.isArray(saved) ? saved.filter((item): item is string => typeof item === 'string') : [] }
+    try { const stored: unknown = JSON.parse(localStorage.getItem('core-live-pickems-submitted-v1') ?? '[]'); return Array.isArray(stored) ? stored.filter((id): id is string => typeof id === 'string') : [] }
     catch { return [] }
   })
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
-  const event = tournaments.find((item) => item.id === eventId) ?? activeTournaments[0] ?? tournaments[0]
-  const eventPicks = pickemFixtures.reduce<Record<string, string>>((result, fixture) => { const pick = picks[`${eventId}:${fixture.id}`]; if (pick) result[fixture.id] = pick; return result }, {})
-  const submitted = submittedEvents.includes(eventId)
-  const selectPick = (fixtureId: string, teamId: string) => {
-    setPicks((previous) => ({ ...previous, [`${eventId}:${fixtureId}`]: teamId }))
-    setMessage(''); setError('')
-  }
+  const event = liveTournaments.find((item) => item.id === eventId) ?? liveTournaments[0]
+  const participants = event ? tournamentParticipants[event.id] ?? [] : []
+  const groupLabels = [...new Set(participants.map((participant) => participant.route).filter((route): route is string => Boolean(route && /^Group\s/i.test(route))))]
+  const questions = [
+    ...(participants.length > 1 ? [
+      { id: 'champion', title: `Who will win ${event?.name ?? 'this tournament'}?`, group: 'All participants', options: participants },
+      { id: 'runner-up', title: 'Who will finish as runner-up?', group: 'All participants', options: participants },
+    ] : []),
+    ...groupLabels.map((group) => ({ id: `leader-${group.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`, title: `Which team will lead ${group.split('·')[0].trim()}?`, group, options: participants.filter((participant) => participant.route === group) })),
+  ]
+  const eventPicks = event ? picks[event.id] ?? {} : {}
+  const submitted = event ? submittedEvents.includes(event.id) : false
+  const changeEvent = (nextId: string) => { setEventId(nextId); setMessage(''); setError('') }
   const savePicks = () => {
-    if (!Object.keys(eventPicks).length) { setError('Choose at least one team before saving your picks.'); setMessage(''); return }
+    if (Object.keys(eventPicks).length !== questions.length) { setError('Choose a team for every question before locking in your picks.'); setMessage(''); return }
+    if (!event) return
+    const nextPicks = { ...picks, [event.id]: eventPicks }
+    const nextSubmitted = [...new Set([...submittedEvents, event.id])]
     try {
-      localStorage.setItem('core-pickems-picks', JSON.stringify(picks))
-      const updated = [...new Set([...submittedEvents, eventId])]
-      localStorage.setItem('core-pickems-submitted', JSON.stringify(updated))
-      setSubmittedEvents(updated); setMessage('Your picks are saved on this device.'); setError('')
+      localStorage.setItem('core-live-pickems-v1', JSON.stringify(nextPicks))
+      localStorage.setItem('core-live-pickems-submitted-v1', JSON.stringify(nextSubmitted))
+      setPicks(nextPicks); setSubmittedEvents(nextSubmitted); setError(''); setMessage('Your live tournament picks are saved on this device.')
     } catch { setError('Could not save picks on this device. Please try again.'); setMessage('') }
   }
   const clearPicks = () => {
-    const updated = { ...picks }
-    pickemFixtures.forEach((fixture) => delete updated[`${eventId}:${fixture.id}`])
-    setPicks(updated); setSubmittedEvents((previous) => previous.filter((id) => id !== eventId)); setMessage(''); setError('')
-    try { localStorage.setItem('core-pickems-picks', JSON.stringify(updated)); const nextSubmitted = submittedEvents.filter((id) => id !== eventId); localStorage.setItem('core-pickems-submitted', JSON.stringify(nextSubmitted)) }
+    if (!event) return
+    const nextPicks = { ...picks }; delete nextPicks[event.id]
+    const nextSubmitted = submittedEvents.filter((id) => id !== event.id)
+    setPicks(nextPicks); setSubmittedEvents(nextSubmitted); setMessage(''); setError('')
+    try { localStorage.setItem('core-live-pickems-v1', JSON.stringify(nextPicks)); localStorage.setItem('core-live-pickems-submitted-v1', JSON.stringify(nextSubmitted)) }
     catch { setError('Picks were cleared for this view but could not be updated in storage.') }
   }
-  if (!event) return <div className="page-content"><EmptyPage title="No tournaments available" description="Check back when an event is added." /></div>
+  if (!event) return <div className="page-content"><EmptyPage title="No live tournament" description="Live tournament picks will appear here when an event is marked live and its participants are available." /></div>
   return <div className="page-content pickems-page">
-    <PageHeader eyebrow="MAKE YOUR CALL" title="Pick’ems" description="Choose who you think will win each matchup and save your picks." action={<Link className="button button-secondary" to={`/tournaments/${event.id}`}><Trophy size={16} />Event details</Link>} />
-    <div className="pickems-note"><Target size={16} /><span>Sample matchups for demonstration · picks stay on this device and are not connected to a live contest.</span></div>
+    <PageHeader eyebrow="LIVE TOURNAMENT PREDICTIONS" title="Live Pick’ems" description="Make your predictions for the tournament that’s live now." action={<Link className="button button-secondary" to={`/tournaments/${event.id}`}><Trophy size={16} />Event details</Link>} />
+    <div className="pickems-note"><Target size={16} /><span>Pick from the live event’s listed participants. Picks are stored on this device and are not connected to official scoring or prizes.</span></div>
     <div className="pickems-layout">
       <div className="pickems-main">
-        <Card className="pickems-event-select"><label htmlFor="pickems-event">Tournament</label><select id="pickems-event" value={eventId} onChange={(e) => { setEventId(e.target.value); setMessage(''); setError('') }}>{activeTournaments.map((item) => <option value={item.id} key={item.id}>{item.name}</option>)}</select><span className={`status-label status-${event.status.toLowerCase().replaceAll(' ', '-')}`}><i />{event.status}</span></Card>
-        <SectionHeading title="Choose your winners" action={<span className="result-count">{Object.keys(eventPicks).length} of {pickemFixtures.length} picked</span>} />
-        <div className="pickem-fixtures">{pickemFixtures.map((fixture) => {
-          const [teamA, teamB] = fixture.ranks.map((rank) => teams.find((team) => team.rank === rank)).filter((team): team is Team => Boolean(team))
-          if (!teamA || !teamB) return null
-          const selected = eventPicks[fixture.id]
-          return <Card className="pickem-match" key={fixture.id}>
-            <div className="pickem-match-head"><span>{fixture.label}</span><span>{fixture.map}</span></div>
-            <div className="pickem-matchup">
-              {[teamA, teamB].map((team) => <button key={team.id} className={`pickem-team${selected === team.id ? ' selected' : ''}`} aria-pressed={selected === team.id} onClick={() => selectPick(fixture.id, team.id)}><TeamLogo team={team} size="large" /><span><b>{team.name}</b><small>KIE rank #{team.rank}</small></span><span className="pickem-choice">{selected === team.id ? <CheckCircle2 size={18} /> : 'Pick'}</span></button>).map((choice, index) => <div className="pickem-option-wrap" key={`${fixture.id}-${index}`}>{choice}{index === 0 && <span className="pickem-vs">VS</span>}</div>)}
-            </div>
-          </Card>
-        })}</div>
-        <div className="pickems-actions"><button className="button button-primary" onClick={savePicks}><CheckCircle2 size={16} />{submitted ? 'Update picks' : 'Save picks'}</button><button className="button button-secondary" onClick={clearPicks}>Clear picks</button></div>
+        <Card className="pickems-event-select"><label htmlFor="pickems-event">Live tournament</label><select id="pickems-event" value={eventId} onChange={(e) => changeEvent(e.target.value)}>{liveTournaments.map((item) => <option value={item.id} key={item.id}>{item.name}</option>)}</select><span className={`status-label status-${event.status.toLowerCase().replaceAll(' ', '-')}`}><i />{event.status}</span></Card>
+        {questions.length ? <>
+        <SectionHeading title="Your predictions" action={<span className="result-count">{Object.keys(eventPicks).length} of {questions.length} picked</span>} />
+        <div className="pickem-questions">{questions.map((question, index) => <Card className="pickem-question" key={question.id}>
+          <div className="pickem-question-head"><span>PICK {String(index + 1).padStart(2, '0')}</span><span>{question.group}</span></div>
+          <h3>{question.title}</h3>
+          <div className="pickem-answer-list">{question.options.map((option) => {
+            const selected = eventPicks[question.id] === option.name
+            const matchedTeam = teams.find((team) => normalizedName(team.name) === normalizedName(option.name))
+            const initials = option.name.split(/\s+/).map((part) => part[0]).join('').slice(0, 2)
+            return <button type="button" key={option.name} className={`pickem-answer${selected ? ' selected' : ''}`} aria-pressed={selected} onClick={() => { const nextPicks = { ...picks, [event.id]: { ...eventPicks, [question.id]: option.name } }; setPicks(nextPicks); setSubmittedEvents((previous) => previous.filter((id) => id !== event.id)); setMessage(''); setError('') }}><TeamLogoBadge name={option.name} logoUrl={option.logoUrl ?? matchedTeam?.logoUrl} initials={initials} size="small" /><span>{option.name}</span>{selected && <CheckCircle2 size={16} />}</button>
+          })}</div>
+        </Card>)}</div>
+        <div className="pickems-actions"><button className="button button-primary" onClick={savePicks}><CheckCircle2 size={16} />{submitted ? 'Update picks' : 'Lock in picks'}</button><button className="button button-secondary" onClick={clearPicks}>Clear picks</button></div>
         {message && <div className="pickems-feedback success" role="status"><CheckCircle2 size={16} />{message}</div>}
         {error && <div className="pickems-feedback error" role="alert"><CircleHelp size={16} />{error}</div>}
+        </> : <Card className="empty-state"><b>Live event participant data is unavailable</b><p>Open the tournament page for its current event information.</p><Link className="text-link" to={`/tournaments/${event.id}`}>View event details <ArrowRight size={14} /></Link></Card>}
       </div>
-      <aside className="pickems-aside"><Card className="pickems-summary"><span className="card-overline">YOUR PICKS</span><b className="pickems-score">{Object.keys(eventPicks).length}<small> / {pickemFixtures.length}</small></b><p>{submitted ? 'Saved for this tournament on this device.' : 'Choose teams and save when you’re ready.'}</p><div className="pickems-progress"><i style={{ width: `${Object.keys(eventPicks).length / pickemFixtures.length * 100}%` }} /></div><div className="pickems-summary-foot"><span>Status</span><b>{submitted ? 'Saved' : 'Draft'}</b></div></Card><Card className="pickems-how"><span className="card-overline">HOW IT WORKS</span><ol><li>Select a tournament.</li><li>Pick one team in each matchup.</li><li>Save your selections on this device.</li></ol><p>These sample matchups do not affect official standings or prizes.</p></Card></aside>
+      <aside className="pickems-aside"><Card className="pickems-summary"><span className="card-overline">YOUR PICKS</span><b className="pickems-score">{Object.keys(eventPicks).length}<small> / {questions.length}</small></b><p>{submitted ? 'Your predictions are locked in on this device.' : 'Complete each live tournament pick and lock them in.'}</p><div className="pickems-progress"><i style={{ width: `${questions.length ? Object.keys(eventPicks).length / questions.length * 100 : 0}%` }} /></div><div className="pickems-summary-foot"><span>Status</span><b>{submitted ? 'Locked' : 'Draft'}</b></div></Card><Card className="pickems-how"><span className="card-overline">HOW TO PLAY</span><ol><li>Choose the live tournament question.</li><li>Pick a team from that event’s participant list.</li><li>Lock in your predictions on this device.</li></ol><p>Predictions do not affect official standings or prizes.</p></Card></aside>
     </div>
   </div>
 }
