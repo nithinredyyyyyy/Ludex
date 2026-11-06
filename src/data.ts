@@ -1,3 +1,5 @@
+import tournamentUpdateFile from "./data/tournament-updates.json" with { type: "json" };
+
 export type TournamentStatus = "Live now" | "Upcoming" | "Completed";
 export type Tournament = {
   id: string;
@@ -85,6 +87,14 @@ export type TournamentRoster = {
   players: string[];
   substitutes?: string[];
   captain?: string;
+};
+
+type CuratedTournamentUpdate = {
+  tournament: Tournament;
+  standings?: TournamentStanding[];
+  prizes?: TournamentPrize[];
+  participants?: TournamentParticipant[];
+  rosters?: Record<string, TournamentRoster>;
 };
 
 export const dataCheckedAt = "Nov 5, 2026";
@@ -3699,3 +3709,19 @@ export const events: Event[] = [
     sourceUrl: `${amaze}/bgmi/tournaments/google-play-arena-bgmi`,
   },
 ];
+
+// Curated tournament updates are imported from JSON so new tournament details
+// can be added without editing this large legacy data module. The import script
+// validates the record before adding or replacing it by tournament id.
+for (const update of tournamentUpdateFile as CuratedTournamentUpdate[]) {
+  const current = tournaments.find((item) => item.id === update.tournament.id);
+  if (current) Object.assign(current, update.tournament);
+  else tournaments.push(update.tournament);
+
+  if (update.standings)
+    tournamentStandings[update.tournament.id] = update.standings;
+  if (update.prizes) tournamentPrizes[update.tournament.id] = update.prizes;
+  if (update.participants)
+    tournamentParticipants[update.tournament.id] = update.participants;
+  if (update.rosters) tournamentRosters[update.tournament.id] = update.rosters;
+}

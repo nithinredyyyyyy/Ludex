@@ -6,6 +6,28 @@ CORE Esports is a responsive React + TypeScript app built with Vite and React Ro
 
 The app includes a local snapshot of 2026 tournament dates and results, BGMI KIE standings, teams, and esports stories. Standings were last updated Oct 18, 2026, and the season dataset was reviewed Nov 5, 2026. Data is bundled with the app and does not refresh live; replace it with a backend/API in the next data integration phase. Fields that have not been announced are labeled accordingly rather than estimated.
 
+### Add or update tournament details
+
+Tournament information is curated into the app bundle. There is no connected API
+or dependable authorized feed that can safely update every source field
+automatically. Use the importer to validate one structured record and make it
+available to all clients on the next build:
+
+1. Copy `data-entry/tournament.template.json` and fill in verified event facts,
+   source URL, standings, prize distribution, participants, and rosters. Use the
+   same stable slug in `tournament.id` as the event detail URL.
+2. Run `npm run data:import -- path/to/your-tournament.json`. Re-importing the
+   same ID updates that event; omitted standings, prizes, participants, rosters,
+   and tournament fields are preserved.
+3. Run `npm run ci`, inspect the tournament page locally, then commit the changed
+   `src/data/tournament-updates.json` with its reviewed input record.
+
+Updates override the matching event or add a new event. Optional arrays only
+replace their existing counterpart when included in the input. This keeps data
+entry repeatable without hand-editing the large `src/data.ts` module. Teams,
+player histories, and ranking snapshots remain in their dedicated typed files
+until a backend or broader importer is added.
+
 ## Requirements
 
 - Node.js 22 or newer and npm

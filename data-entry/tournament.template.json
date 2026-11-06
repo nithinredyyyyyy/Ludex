@@ -1,0 +1,53 @@
+{
+  "tournament": {
+    "id": "example-open-2027",
+    "name": "Example Open 2027",
+    "game": "BGMI",
+    "date": "Jan 10–12, 2027",
+    "location": "India",
+    "prize": "₹10,00,000",
+    "status": "Upcoming",
+    "color": "rose",
+    "sourceUrl": "https://example.com/tournament",
+    "sourceLabel": "Official tournament page",
+    "asOf": "Jan 5, 2027",
+    "teams": 16,
+    "description": "Verified summary of the event.",
+    "mark": "EO",
+    "logoUrl": "/assets/tournaments/example-open-2027.png",
+    "organizer": "Organizer name",
+    "format": "16-team finals",
+    "formatDetail": "Explain qualification and tournament stages.",
+    "broadcast": "Official broadcast"
+  },
+  "standings": [
+    {
+      "rank": 1,
+      "name": "Team Example",
+      "points": 100,
+      "wins": 2,
+      "placementPoints": 40,
+      "eliminations": 60
+    }
+  ],
+  "prizes": [{ "place": "1st · Team Example", "amount": "₹5,00,000" }],
+  "participants": [
+    {
+      "name": "Team Example",
+      "route": "team-example",
+      "logoUrl": "/assets/teams/team-example.png"
+    }
+  ],
+  "rosters": {
+    "Team Example": {
+      "captain": "PlayerOne",
+      "players": [
+        "PlayerOne",
+        "PlayerTwo",
+        "PlayerThree",
+        "PlayerFour",
+        "PlayerFive"
+      ]
+    }
+  }
+}
