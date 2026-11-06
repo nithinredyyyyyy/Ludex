@@ -6,7 +6,7 @@ Review date: 2026-11-06
 
 Baseline from `docs/baseline-build.txt`: initial JS 525.95 kB raw / 140.67 kB gzip; CSS 96.28 / 18.55 kB gzip.
 
-Before this remediation, the initial JS entry was 430.88 kB raw / 125.88 kB gzip. The CEGC remediation build is 431.31 kB raw / 126.10 kB gzip, CSS remains 80.16 / 15.90 kB gzip. The small entry increase is from the timestamp, explicit snapshot caveat, and source verified result updates. The BGIS detail, player data, and rankings remain separate chunks. Other page UI remains largely in `src/App.tsx`; no broad splitting was done.
+Before this remediation, the initial JS entry was 430.88 kB raw / 125.88 kB gzip. The final CEGC remediation build is 430.64 kB raw / 125.99 kB gzip, CSS remains 80.16 / 15.90 kB gzip. The BGIS detail, player data, and rankings remain separate chunks. Other page UI remains largely in `src/App.tsx`; no broad splitting was done.
 
 ## CEGC snapshot
 

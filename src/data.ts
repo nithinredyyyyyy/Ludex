@@ -1384,8 +1384,6 @@ export const teams: Team[] = [
     trend: "▲10",
     initials: "8B",
     accent: "lavender",
-    logoUrl:
-      "https://liquipedia.net/commons/images/thumb/3/30/8bit_allmode.png/600px-8bit_allmode.png",
     highlights: ["BMSD 2026 third place · 140 finals points"],
   },
   {
@@ -1412,8 +1410,6 @@ export const teams: Team[] = [
     trend: "▼2",
     initials: "RX",
     accent: "rose",
-    logoUrl:
-      "https://liquipedia.net/commons/images/2/2b/Revenant_XSpark_2026_allmode.png",
     highlights: ["CEGC 2026 Group Stage 1 · 1st · 83 points"],
   },
 ];
@@ -1684,10 +1680,6 @@ export const cegcStandings = cegcGroupAStandings;
 const cegcTeamLogoUrls: Record<string, string> = {
   "Team Apex Gaming":
     "https://esportsamaze.com/_next/image?q=75&url=%2Fapi%2Fmedia%2Fteam-logo-1788898206364-3d02c8b8.png&w=640",
-  "iQOO 8Bit":
-    "https://liquipedia.net/commons/images/thumb/3/30/8bit_allmode.png/600px-8bit_allmode.png",
-  "Team 8BIT":
-    "https://liquipedia.net/commons/images/thumb/3/30/8bit_allmode.png/600px-8bit_allmode.png",
   "iQOO Team Tamilas":
     "https://esportsamaze.com/_next/image?q=75&url=%2Fapi%2Fmedia%2Fteam-logo-1788898252110-fd96b7d7.png&w=640",
   "Team Tamilas":
@@ -1718,10 +1710,6 @@ const cegcTeamLogoUrls: Record<string, string> = {
     "https://media.sportstiger.com/media/oka-1719048419008-original.webp",
   Orangutan:
     "https://media.sportstiger.com/media/oka-1719048419008-original.webp",
-  "iQOO Revenant XSpark":
-    "https://liquipedia.net/commons/images/2/2b/Revenant_XSpark_2026_allmode.png",
-  "Revenant XSpark":
-    "https://liquipedia.net/commons/images/2/2b/Revenant_XSpark_2026_allmode.png",
 };
 
 // Tournament records are cross-checked against both event databases; provider labels stay out of the UI.
@@ -1791,12 +1779,7 @@ const makeCegcParticipants = (
   names.map((name) => ({
     name,
     route,
-    ...(!route.endsWith("Phase 1") ||
-    !["iQOO 8Bit", "iQOO Revenant XSpark"].includes(name)
-      ? cegcTeamLogoUrls[name]
-        ? { logoUrl: cegcTeamLogoUrls[name] }
-        : {}
-      : {}),
+    ...(cegcTeamLogoUrls[name] ? { logoUrl: cegcTeamLogoUrls[name] } : {}),
   }));
 export const tournamentParticipants: Record<string, TournamentParticipant[]> = {
   "cegc-2025": makeCegcParticipants(
