@@ -7,6 +7,9 @@ ios/App/Pods/
 ios/App/build/
 *.tsbuildinfo
 .vite-host*.log
+test-results/
+playwright-report/
+coverage/
 .env
 .env.*
 !.env.example

@@ -1,6 +1,6 @@
 LUDEX / CORE Esports production build baseline
 Date: 2026-11-06
-Command: npm run build
+Command: npm run build (after dependency recovery)
 Toolchain reported by Vite: vite v8.3.6
 Result: PASS (TypeScript project build and Vite production build)
 
@@ -12,3 +12,9 @@ Files emitted in dist (raw and gzip sizes as reported by Vite):
 The single JavaScript chunk exceeds Vite's 500 kB warning threshold. These are
 the baseline values before route-level code splitting. Build output:
   1583 modules transformed; built in 787ms.
+
+Environment note: the requested clean-install command `npm ci` was attempted
+but Windows returned EPERM while unlinking a locked Rolldown native binding
+inside node_modules. Dependencies were restored with `npm install`, then the
+build above completed. Therefore this is a successful build baseline, but not
+a clean-install reproduction.
