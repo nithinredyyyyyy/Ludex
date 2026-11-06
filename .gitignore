@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.capacitor/
+android/.gradle/
+android/app/build/
+ios/App/Pods/
+ios/App/build/
+*.tsbuildinfo
+.vite-host*.log
+.env
+.env.*
+!.env.example

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" role="img" aria-labelledby="title desc">
+  <title id="title">India Korea Invitational 2023</title>
+  <desc id="desc">Two Nations, One Passion invitational emblem</desc>
+  <rect width="320" height="200" rx="28" fill="#f7f6f3"/>
+  <circle cx="160" cy="82" r="43" fill="#fff" stroke="#e3e5e8" stroke-width="3"/>
+  <path d="M123 82a37 37 0 0 1 74 0c0 15-17 18-37 0-20 18-37 15-37 0z" fill="#c63843"/>
+  <path d="M123 82a37 37 0 0 0 74 0c0-15-17-18-37 0-20-18-37-15-37 0z" fill="#344f86"/>
+  <text x="160" y="148" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" font-weight="800" letter-spacing="2" fill="#273140">INDIA · KOREA</text>
+  <text x="160" y="171" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="700" letter-spacing="2" fill="#818895">INVITATIONAL 2023</text>
+</svg>

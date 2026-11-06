@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-labelledby="title">
+  <title id="title">Chennai Esports Global Championship 2026</title>
+  <rect width="240" height="240" rx="48" fill="#f5f2ef"/>
+  <path d="M120 27 202 73v94l-82 46-82-46V73z" fill="#fff" stroke="#e7dfd8" stroke-width="5"/>
+  <path d="M120 50 181 84v70l-61 35-61-35V84z" fill="#b42335"/>
+  <path d="M142 93a32 32 0 1 0 0 54" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round"/>
+  <path d="M144 93h24v12h-24m0 30h24v12h-24" fill="#fff"/>
+  <text x="120" y="176" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="700" letter-spacing="3" fill="#fff">CHENNAI 2026</text>
+</svg>
