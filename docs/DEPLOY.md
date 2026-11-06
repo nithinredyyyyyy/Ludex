@@ -9,8 +9,10 @@
 - SPA routing: `public/_redirects` rewrites nested paths to `/index.html`
 
 The same Vite build copies the Capacitor web assets and emits `sitemap.xml`.
-This guide records configuration only; it does not claim a Cloudflare preview or
-production deployment was tested.
+The `audit-fixes` preview was checked at commit `19c1451`. The later commit
+`0b60b8f` was pushed, but its preview deployment could not be confirmed during
+the final review because the preview hostname failed DNS resolution. No
+production deployment was performed or claimed.
 
 ## Create a branch preview
 
