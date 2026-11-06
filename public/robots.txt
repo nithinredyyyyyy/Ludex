@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ludex-cmn.pages.dev/sitemap.xml

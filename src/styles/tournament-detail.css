@@ -29,7 +29,7 @@
 }
 .format-extra small {
   font-size: 8px;
-  color: #9b9fa8;
+  color: #6d6f76;
   letter-spacing: 0.6px;
   font-weight: 700;
 }
@@ -89,14 +89,14 @@
 }
 .event-timeline-content small {
   flex: none;
-  color: #9398a2;
+  color: #6c6f77;
   font-size: 8px;
   text-align: right;
 }
 .event-timeline-content p {
   font-size: 9px;
   line-height: 1.55;
-  color: #888d97;
+  color: #6c6f77;
   margin: 6px 0 0;
 }
 .tournament-detail-page #format .detail-facts {

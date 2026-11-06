@@ -23,7 +23,7 @@
   padding: 0 5px;
   border-radius: 20px;
   background: #f5f2f1;
-  color: #9b6c70;
+  color: #895d62;
   font-size: 8px;
 }
 .tournament-participant-grid {
@@ -67,7 +67,7 @@
 }
 .roster-coverage {
   margin: 12px 0 0;
-  color: #737987;
+  color: #6a6f7c;
   font-size: 11px;
   line-height: 1.5;
 }
@@ -111,7 +111,7 @@
 }
 .participant-roster summary > svg {
   flex: none;
-  color: #858b95;
+  color: #6b6f78;
   transition: transform 0.18s;
 }
 .participant-roster[open] summary > svg {
@@ -121,7 +121,7 @@
   flex: none;
   max-width: 74px;
   overflow: hidden;
-  color: #8a7072;
+  color: #82696b;
   font-size: 9px;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -132,7 +132,7 @@
 .participant-roster-content > span {
   display: block;
   margin-bottom: 7px;
-  color: #777e89;
+  color: #697079;
   font-size: 9px;
 }
 .participant-roster-content > div {
@@ -150,7 +150,7 @@
 }
 .participant-roster-content p {
   margin: 0;
-  color: #777e89;
+  color: #697079;
   font-size: 10px;
   line-height: 1.5;
 }

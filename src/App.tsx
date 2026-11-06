@@ -1,4 +1,12 @@
-import { useEffect, useMemo, useState, type ReactNode } from "react";
+import {
+  lazy,
+  Suspense,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import {
   BrowserRouter,
   Link,
@@ -54,18 +62,38 @@ import {
   type TournamentStanding,
 } from "./data";
 import "./styles/tournament-participants.css";
-import BGIS2026Detail from "./components/BGIS2026Detail";
 import "./styles/tournament-detail.css";
-import { playerProfiles } from "./data/players";
-import {
-  kiePlayerRankings,
-  kieRankingsSnapshot,
-  kieTeamRankings,
-} from "./data/rankings";
+import type { PlayerProfileRecord } from "./data/players";
+import { kieRankingsSnapshot } from "./data/rankings-summary";
 import "./styles.css";
 import "./styles/profiles.css";
 import "./styles/pickems.css";
 import "./styles/layout-fixes.css";
+import {
+  clearPickemEvent,
+  getPickemState,
+  savePickemState,
+} from "./pickems-storage";
+import { canonicalBaseUrl } from "./seo-config";
+
+const BGIS2026Detail = lazy(() => import("./components/BGIS2026Detail"));
+
+function usePlayerProfiles() {
+  const [profiles, setProfiles] = useState<PlayerProfileRecord[]>([]);
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    let active = true;
+    void import("./data/players").then(({ playerProfiles }) => {
+      if (!active) return;
+      setProfiles(playerProfiles);
+      setLoaded(true);
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
+  return { profiles, loaded };
+}
 
 const nav = [
   { label: "Home", to: "/", icon: Home },
@@ -90,7 +118,7 @@ const archiveSeriesFullNames: Record<string, string> = {
 
 function Brand() {
   return (
-    <Link className="brand" to="/" aria-label="CORE Esports home">
+    <Link className="brand" to="/">
       <span className="brand-mark">
         <ArrowUpRight size={23} strokeWidth={3} />
       </span>
@@ -123,6 +151,30 @@ function AppShell() {
       return [];
     }
   });
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    const isTouch =
+      window.matchMedia("(pointer: coarse)").matches ||
+      navigator.maxTouchPoints > 0;
+    if (isTouch) return;
+    const handleShortcut = (event: KeyboardEvent) => {
+      if (!(event.ctrlKey || event.metaKey) || event.key.toLowerCase() !== "k")
+        return;
+      const target = event.target;
+      if (
+        target instanceof HTMLElement &&
+        target !== searchInputRef.current &&
+        (target.isContentEditable ||
+          /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName))
+      )
+        return;
+      event.preventDefault();
+      navigate("/search");
+      searchInputRef.current?.focus();
+    };
+    window.addEventListener("keydown", handleShortcut);
+    return () => window.removeEventListener("keydown", handleShortcut);
+  }, [navigate]);
   useEffect(() => {
     const path = location.pathname;
     const detailId = decodeURIComponent(path.split("/")[2] ?? "");
@@ -134,13 +186,6 @@ function AppShell() {
       : undefined;
     const articlePage = path.startsWith("/news/")
       ? articles.find((entry) => entry.id === detailId)
-      : undefined;
-    const playerPage = path.startsWith("/players/")
-      ? playerProfiles.find((entry) =>
-          [entry.id, entry.name, ...entry.aliases].some(
-            (alias) => playerSlug(alias) === detailId,
-          ),
-        )
       : undefined;
     const titles: Record<string, string> = {
       "/": "Home",
@@ -161,35 +206,121 @@ function AppShell() {
           ? `${teamPage.name} profile`
           : path.startsWith("/teams/")
             ? "Team profile"
-            : playerPage
-              ? `${playerPage.name} profile`
-              : path.startsWith("/players/")
-                ? `${detailId.replaceAll("-", " ")} profile`
-                : (articlePage?.title ??
-                  (path.startsWith("/news/") ? "Story" : titles[path])));
+            : path.startsWith("/players/")
+              ? `${detailId.replaceAll("-", " ")} profile`
+              : (articlePage?.title ??
+                (path.startsWith("/news/") ? "Story" : titles[path])));
     const title = section ?? "Page not found";
-    document.title = `${title} | CORE Esports`;
-    const socialTitle = document.querySelector<HTMLMetaElement>(
-      'meta[property="og:title"]',
+    const pageTitle = `${title} | CORE Esports`;
+    document.title = pageTitle;
+    const descriptions: Record<string, string> = {
+      "/": "Follow the latest BGMI esports tournaments, teams, rankings and news with CORE Esports.",
+      "/tournaments":
+        "Browse live, upcoming and completed BGMI tournaments, with schedules, formats and standings.",
+      "/teams":
+        "Explore BGMI esports teams, active rosters, rankings and achievements.",
+      "/rankings":
+        "Review KIE team and player rankings, points, movement and event activity.",
+      "/news": "Read esports news and coverage from the CORE Esports desk.",
+      "/calendar":
+        "See the CORE Esports tournament calendar and scheduled match events.",
+      "/search": "Search CORE Esports tournaments, teams, players and news.",
+      "/favorites": "Your saved CORE Esports tournaments, teams and stories.",
+      "/pickems": "Make picks for currently live CORE Esports tournaments.",
+    };
+    const pageDescription =
+      tournamentPage?.description ??
+      (teamPage
+        ? `${teamPage.name} team profile, current KIE ranking, tournament placements, registered lineups and player profiles.`
+        : (articlePage?.summary ??
+          descriptions[path] ??
+          `Explore CORE Esports ${title.toLowerCase()}, tournament schedules, teams, rankings and stories.`));
+    const absoluteUrl = `${canonicalBaseUrl}${path}`;
+    const setMeta = (selector: string, attribute: string, value: string) => {
+      const meta = document.querySelector<HTMLMetaElement>(selector);
+      if (meta) meta.setAttribute(attribute, value);
+    };
+    const canonical = document.querySelector<HTMLLinkElement>(
+      'link[rel="canonical"]',
     );
-    if (socialTitle) socialTitle.content = document.title;
-    const description = document.querySelector<HTMLMetaElement>(
-      'meta[name="description"]',
+    if (canonical) canonical.href = absoluteUrl;
+    setMeta('meta[name="description"]', "content", pageDescription);
+    setMeta('meta[property="og:title"]', "content", pageTitle);
+    setMeta('meta[property="og:description"]', "content", pageDescription);
+    setMeta('meta[property="og:url"]', "content", absoluteUrl);
+    setMeta(
+      'meta[property="og:type"]',
+      "content",
+      articlePage ? "article" : "website",
     );
-    if (description)
-      description.content =
-        tournamentPage?.description ??
-        (teamPage
-          ? `${teamPage.name} team profile, current KIE ranking, tournament placements, registered lineups and player profiles.`
-          : playerPage
-            ? `${playerPage.name} player profile with career hitboard statistics, tournament achievements and registered lineups.`
-            : (articlePage?.summary ??
-              `Explore CORE Esports ${title.toLowerCase()}, tournament schedules, teams, rankings and stories.`));
-    const socialDescription = document.querySelector<HTMLMetaElement>(
-      'meta[property="og:description"]',
+    setMeta('meta[name="twitter:title"]', "content", pageTitle);
+    setMeta('meta[name="twitter:description"]', "content", pageDescription);
+    const notFound =
+      !section ||
+      (path.startsWith("/tournaments/") && !tournamentPage) ||
+      (path.startsWith("/teams/") && !teamPage) ||
+      (path.startsWith("/news/") && !articlePage);
+    const robots = document.querySelector<HTMLMetaElement>(
+      'meta[name="robots"]',
     );
-    if (socialDescription && description)
-      socialDescription.content = description.content;
+    if (notFound) {
+      const robotsTag = robots ?? document.createElement("meta");
+      robotsTag.name = "robots";
+      robotsTag.content = "noindex";
+      if (!robots) document.head.append(robotsTag);
+    } else {
+      robots?.remove();
+    }
+    document.querySelector("script[data-route-jsonld]")?.remove();
+    if (articlePage && Number.isFinite(Date.parse(articlePage.date))) {
+      const jsonLd = document.createElement("script");
+      jsonLd.type = "application/ld+json";
+      jsonLd.dataset.routeJsonld = "true";
+      jsonLd.textContent = JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "NewsArticle",
+        headline: articlePage.title,
+        datePublished: new Date(articlePage.date).toISOString(),
+        mainEntityOfPage: absoluteUrl,
+        description: articlePage.summary,
+        publisher: { "@type": "Organization", name: "CORE Esports" },
+      });
+      document.head.append(jsonLd);
+    }
+    if (path.startsWith("/players/")) {
+      void import("./data/players").then(({ playerProfiles }) => {
+        if (location.pathname !== path) return;
+        const playerPage = playerProfiles.find((entry) =>
+          [entry.id, entry.name, ...entry.aliases].some(
+            (alias) => playerSlug(alias) === detailId,
+          ),
+        );
+        if (playerPage) {
+          const playerTitle = `${playerPage.name} profile | CORE Esports`;
+          const playerDescription = `${playerPage.name} player profile with career hitboard statistics, tournament achievements and registered lineups.`;
+          document.title = playerTitle;
+          setMeta('meta[name="description"]', "content", playerDescription);
+          setMeta('meta[property="og:title"]', "content", playerTitle);
+          setMeta(
+            'meta[property="og:description"]',
+            "content",
+            playerDescription,
+          );
+          setMeta('meta[name="twitter:title"]', "content", playerTitle);
+          setMeta(
+            'meta[name="twitter:description"]',
+            "content",
+            playerDescription,
+          );
+          robots?.remove();
+        } else {
+          const robotsTag = robots ?? document.createElement("meta");
+          robotsTag.name = "robots";
+          robotsTag.content = "noindex";
+          if (!robots) document.head.append(robotsTag);
+        }
+      });
+    }
   }, [location.pathname]);
   useEffect(() => {
     if (!toast) return;
@@ -265,6 +396,7 @@ function AppShell() {
           <label className="global-search">
             <Search size={17} />
             <input
+              ref={searchInputRef}
               value={query}
               onChange={(e) => {
                 runSearch(e.target.value);
@@ -458,6 +590,20 @@ function PageHeader({
         <p>{description}</p>
       </div>
       {action && <div className="page-header-action">{action}</div>}
+    </div>
+  );
+}
+
+function PageLoading() {
+  return (
+    <div
+      className="page-content route-loading"
+      role="status"
+      aria-live="polite"
+    >
+      <span className="loading-mark" aria-hidden="true" />
+      <b>Loading CORE Esports</b>
+      <span>Preparing this page…</span>
     </div>
   );
 }
@@ -669,32 +815,8 @@ function PickemsPage() {
       (tournamentParticipants[item.id]?.length ?? 0) > 0,
   );
   const [eventId, setEventId] = useState(() => liveTournaments[0]?.id ?? "");
-  const [picks, setPicks] = useState<Record<string, Record<string, string>>>(
-    () => {
-      try {
-        const stored: unknown = JSON.parse(
-          localStorage.getItem("core-live-pickems-v1") ?? "{}",
-        );
-        return stored && typeof stored === "object" && !Array.isArray(stored)
-          ? (stored as Record<string, Record<string, string>>)
-          : {};
-      } catch {
-        return {};
-      }
-    },
-  );
-  const [submittedEvents, setSubmittedEvents] = useState<string[]>(() => {
-    try {
-      const stored: unknown = JSON.parse(
-        localStorage.getItem("core-live-pickems-submitted-v1") ?? "[]",
-      );
-      return Array.isArray(stored)
-        ? stored.filter((id): id is string => typeof id === "string")
-        : [];
-    } catch {
-      return [];
-    }
-  });
+  const [storedState, setStoredState] = useState(getPickemState);
+  const { picks, submittedEvents } = storedState;
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const event =
@@ -754,13 +876,9 @@ function PickemsPage() {
     const nextPicks = { ...picks, [event.id]: eventPicks };
     const nextSubmitted = [...new Set([...submittedEvents, event.id])];
     try {
-      localStorage.setItem("core-live-pickems-v1", JSON.stringify(nextPicks));
-      localStorage.setItem(
-        "core-live-pickems-submitted-v1",
-        JSON.stringify(nextSubmitted),
-      );
-      setPicks(nextPicks);
-      setSubmittedEvents(nextSubmitted);
+      const nextState = { picks: nextPicks, submittedEvents: nextSubmitted };
+      savePickemState(nextState);
+      setStoredState(nextState);
       setError("");
       setMessage("Your live tournament picks are saved on this device.");
     } catch {
@@ -770,19 +888,12 @@ function PickemsPage() {
   };
   const clearPicks = () => {
     if (!event) return;
-    const nextPicks = { ...picks };
-    delete nextPicks[event.id];
-    const nextSubmitted = submittedEvents.filter((id) => id !== event.id);
-    setPicks(nextPicks);
-    setSubmittedEvents(nextSubmitted);
+    const nextState = clearPickemEvent(storedState, event.id);
     setMessage("");
     setError("");
     try {
-      localStorage.setItem("core-live-pickems-v1", JSON.stringify(nextPicks));
-      localStorage.setItem(
-        "core-live-pickems-submitted-v1",
-        JSON.stringify(nextSubmitted),
-      );
+      savePickemState(nextState);
+      setStoredState(nextState);
     } catch {
       setError(
         "Picks were cleared for this view but could not be updated in storage.",
@@ -817,8 +928,9 @@ function PickemsPage() {
       <div className="pickems-note">
         <Target size={16} />
         <span>
-          Pick from the live event’s listed participants. Picks are stored on
-          this device and are not connected to official scoring or prizes.
+          Picks are saved only in this device and browser. They are not synced
+          to an account and are not part of an official leaderboard, scoring, or
+          prizes.
         </span>
       </div>
       <div className="pickems-layout">
@@ -890,10 +1002,12 @@ function PickemsPage() {
                                   [question.id]: option.name,
                                 },
                               };
-                              setPicks(nextPicks);
-                              setSubmittedEvents((previous) =>
-                                previous.filter((id) => id !== event.id),
-                              );
+                              setStoredState({
+                                picks: nextPicks,
+                                submittedEvents: submittedEvents.filter(
+                                  (id) => id !== event.id,
+                                ),
+                              });
                               setMessage("");
                               setError("");
                             }}
@@ -1096,7 +1210,7 @@ function TournamentStandings({
   return (
     <div
       className={`source-standings${detailed ? " detailed-standings" : ""}`}
-      data-horizontal-scroll={detailed ? "true" : undefined}
+      data-horizontal-scroll="true"
     >
       <table aria-label="Tournament standings">
         <thead>
@@ -1214,12 +1328,15 @@ function TeamLogoBadge({
   size?: "small" | "normal" | "large";
 }) {
   const [failed, setFailed] = useState(false);
+  const dimensions = size === "small" ? 26 : size === "large" ? 48 : 40;
   return (
     <span className={`team-logo team-logo-${size} ${accent}`}>
       {logoUrl && !failed ? (
         <img
           src={logoUrl}
           alt={`${name} logo`}
+          width={dimensions}
+          height={dimensions}
           loading="lazy"
           decoding="async"
           onError={() => setFailed(true)}
@@ -1255,6 +1372,7 @@ function TournamentLogo({
   size?: "normal" | "large";
 }) {
   const [failed, setFailed] = useState(false);
+  const dimensions = size === "large" ? 92 : 40;
   return (
     <span
       className={`tournament-logo tournament-logo-${size} ${item.color}`}
@@ -1264,6 +1382,8 @@ function TournamentLogo({
         <img
           src={item.logoUrl}
           alt={`${item.name} logo`}
+          width={dimensions}
+          height={dimensions}
           loading="lazy"
           decoding="async"
           onError={() => setFailed(true)}
@@ -1345,16 +1465,7 @@ function TournamentParticipantList({
                 return (
                   <details className="participant-roster" key={name}>
                     <summary>
-                      {team ? (
-                        <Link
-                          to={`/teams/${team.id}`}
-                          onClick={(event) => event.stopPropagation()}
-                        >
-                          {content}
-                        </Link>
-                      ) : (
-                        content
-                      )}
+                      {content}
                       <span className="roster-hint">
                         {roster
                           ? `${roster.players.length}${roster.substitutes?.length ? ` + ${roster.substitutes.length}` : ""} players`
@@ -1363,6 +1474,11 @@ function TournamentParticipantList({
                       <ChevronDown size={15} />
                     </summary>
                     <div className="participant-roster-content">
+                      {team && (
+                        <Link className="text-link" to={`/teams/${team.id}`}>
+                          View {team.name} profile <ArrowRight size={13} />
+                        </Link>
+                      )}
                       {roster ? (
                         <>
                           {roster.captain && (
@@ -1803,11 +1919,13 @@ function TournamentDetail({
     );
   if (item.id === "bgis-2026")
     return (
-      <BGIS2026Detail
-        item={item}
-        favorite={favorites.includes(item.id)}
-        onFavorite={() => toggleFavorite(item.id)}
-      />
+      <Suspense fallback={<PageLoading />}>
+        <BGIS2026Detail
+          item={item}
+          favorite={favorites.includes(item.id)}
+          onFavorite={() => toggleFavorite(item.id)}
+        />
+      </Suspense>
     );
   const standings: TournamentStanding[] = tournamentStandings[item.id] ?? [];
   const prizeRows = tournamentPrizes[item.id] ?? [];
@@ -2763,7 +2881,8 @@ function TeamDetail() {
 }
 function PlayerDetail() {
   const { id = "" } = useParams();
-  const profile = playerProfiles.find((entry) =>
+  const { profiles, loaded } = usePlayerProfiles();
+  const profile = profiles.find((entry) =>
     [entry.id, entry.name, ...entry.aliases].some(
       (alias) => playerSlug(alias) === id,
     ),
@@ -2781,6 +2900,7 @@ function PlayerDetail() {
     (entry) =>
       currentTeam && normalizedName(entry.name) === normalizedName(currentTeam),
   );
+  if (!loaded) return <PageLoading />;
   if (!profile && !lineups.length)
     return (
       <EmptyPage
@@ -2924,7 +3044,10 @@ function PlayerDetail() {
             }
           />
           <Card className="profile-results">
-            <div className="player-history-scroll">
+            <div
+              className="player-history-scroll"
+              data-horizontal-scroll="true"
+            >
               <table className="player-history-table event-stats-table">
                 <thead>
                   <tr>
@@ -2981,7 +3104,7 @@ function PlayerDetail() {
       />
       {profile?.results?.length ? (
         <Card className="profile-results">
-          <div className="player-history-scroll">
+          <div className="player-history-scroll" data-horizontal-scroll="true">
             <table className="player-history-table">
               <thead>
                 <tr>
@@ -3053,7 +3176,10 @@ function PlayerDetail() {
             }
           />
           <Card className="profile-results">
-            <div className="player-history-scroll">
+            <div
+              className="player-history-scroll"
+              data-horizontal-scroll="true"
+            >
               <table className="player-history-table">
                 <thead>
                   <tr>
@@ -3088,7 +3214,10 @@ function PlayerDetail() {
         <>
           <SectionHeading title="Team history" />
           <Card className="profile-results">
-            <div className="player-history-scroll">
+            <div
+              className="player-history-scroll"
+              data-horizontal-scroll="true"
+            >
               <table className="player-history-table">
                 <thead>
                   <tr>
@@ -3146,15 +3275,35 @@ function PlayerDetail() {
 }
 
 function RankingsPage() {
+  const [rankingsLoaded, setRankingsLoaded] = useState(false);
+  const [teamRankingRows, setTeamRankingRows] = useState<
+    typeof import("./data/rankings").kieTeamRankings
+  >([]);
+  const [playerRankingRows, setPlayerRankingRows] = useState<
+    typeof import("./data/rankings").kiePlayerRankings
+  >([]);
+  useEffect(() => {
+    let active = true;
+    void import("./data/rankings").then((data) => {
+      if (!active) return;
+      setTeamRankingRows(data.kieTeamRankings);
+      setPlayerRankingRows(data.kiePlayerRankings);
+      setRankingsLoaded(true);
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
   const [board, setBoard] = useState<"teams" | "players">("teams");
   const [limit, setLimit] = useState<10 | 25 | 50>(50);
   const [query, setQuery] = useState("");
   const isTeams = board === "teams";
   const term = query.trim().toLowerCase();
-  const teamRows = kieTeamRankings
+  const { profiles: playerProfiles } = usePlayerProfiles();
+  const teamRows = teamRankingRows
     .filter((row) => !term || row.name.toLowerCase().includes(term))
     .slice(0, limit);
-  const playerRows = kiePlayerRankings
+  const playerRows = playerRankingRows
     .filter(
       (row) => !term || `${row.name} ${row.team}`.toLowerCase().includes(term),
     )
@@ -3167,6 +3316,7 @@ function RankingsPage() {
     ? kieRankingsSnapshot.teamDate
     : kieRankingsSnapshot.playerDate;
   const sourceUrl = `https://esportsamaze.com/bgmi/rankings?board=${board}`;
+  if (!rankingsLoaded) return <PageLoading />;
   return (
     <div className="page-content">
       <PageHeader
@@ -3805,6 +3955,8 @@ function SearchPage({
   favorites: string[];
   toggleFavorite: (id: string) => void;
 }) {
+  const { profiles: playerProfiles, loaded: playersLoaded } =
+    usePlayerProfiles();
   const result = useMemo(() => {
     const value = query.trim().toLowerCase();
     return {
@@ -3829,7 +3981,7 @@ function SearchPage({
           .includes(value),
       ),
     };
-  }, [query]);
+  }, [query, playerProfiles]);
   return (
     <div className="page-content">
       <PageHeader
@@ -3841,6 +3993,7 @@ function SearchPage({
         <Search size={20} />
         <input
           autoFocus
+          aria-label="Search tournaments, teams, players, and news"
           value={query}
           onChange={(e) => onQueryChange(e.target.value)}
           placeholder="Search events, teams, players, news..."
@@ -3920,12 +4073,19 @@ function SearchPage({
             result.teamResults.length +
             result.playerResults.length +
             result.articleResults.length ===
-            0 && (
-            <EmptyPage
-              title="No results found"
-              description="Try another search term."
-            />
-          )}
+            0 &&
+            playersLoaded && (
+              <EmptyPage
+                title="No results found"
+                description="Try another search term."
+              />
+            )}
+          {result.tournamentResults.length +
+            result.teamResults.length +
+            result.playerResults.length +
+            result.articleResults.length ===
+            0 &&
+            !playersLoaded && <PageLoading />}
         </div>
       )}
     </div>

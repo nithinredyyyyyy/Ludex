@@ -8,14 +8,14 @@
   -webkit-font-smoothing: antialiased;
   font-optical-sizing: auto;
   font-weight: 400;
-  --red: #cf4e5b;
-  --red-dark: #b9404e;
+  --red: #b9404e;
+  --red-dark: #a63444;
   --ink: #292d38;
-  --muted: #898e9b;
+  --muted: #6d6f76;
   --line: #eceef1;
   --surface: #fff;
   --canvas: #f5f6f8;
-  --green: #538879;
+  --green: #3f7668;
   --serif: "Manrope", "DM Sans", sans-serif;
 }
 * {
@@ -87,7 +87,7 @@ button {
   margin-top: 5px;
 }
 .sidebar-label {
-  color: #a5a9b2;
+  color: #6d6f75;
   font-size: 9px;
   font-weight: 700;
   letter-spacing: 1.2px;
@@ -103,7 +103,7 @@ button {
   display: flex;
   align-items: center;
   gap: 12px;
-  color: #777d89;
+  color: #6a6f7a;
   border-radius: 10px;
   font-size: 12px;
   font-weight: 600;
@@ -165,7 +165,7 @@ button {
   top: 12px;
   background: white;
   border: 1px solid #eee;
-  color: #9a7478;
+  color: #88676a;
   padding: 4px 6px;
   border-radius: 5px;
   font-size: 7px;
@@ -196,7 +196,7 @@ button {
   align-items: center;
   gap: 10px;
   padding: 0 11px;
-  color: #959aa5;
+  color: #6c6f77;
   background: #f6f7f8;
   border: 1px solid #f0f1f3;
   border-radius: 9px;
@@ -214,14 +214,14 @@ button {
 .global-search input::placeholder,
 .inline-search input::placeholder,
 .search-large input::placeholder {
-  color: #a4a8b1;
+  color: #6d6f75;
 }
 .global-search kbd,
 .search-large kbd {
   font:
     10px "DM Sans",
     sans-serif;
-  color: #959aa5;
+  color: #6c6f77;
   border: 1px solid #e4e5e9;
   border-radius: 4px;
   padding: 3px 5px;
@@ -240,7 +240,7 @@ button {
   height: 35px;
   display: grid;
   place-items: center;
-  color: #777d89;
+  color: #6a6f7a;
   position: relative;
   border-radius: 9px;
   cursor: pointer;
@@ -274,7 +274,7 @@ button {
   font-weight: 600;
 }
 .profile-chevron {
-  color: #a1a5ae;
+  color: #6d6f76;
 }
 .mobile-brand {
   display: none;
@@ -309,7 +309,7 @@ button {
   line-height: 1.4;
   letter-spacing: 1.15px;
   font-weight: 700;
-  color: #a0a3ac;
+  color: #6d6f76;
 }
 .page-header-action {
   flex: none;
@@ -361,7 +361,7 @@ button {
   justify-content: center;
   border: 1px solid var(--line);
   border-radius: 7px;
-  color: #818591;
+  color: #6c6f7a;
 }
 .data-notice {
   display: flex;
@@ -369,7 +369,7 @@ button {
   gap: 8px;
   background: #fbf8f1;
   border: 1px solid #f1eadb;
-  color: #9a8a67;
+  color: #7b6e52;
   border-radius: 8px;
   padding: 9px 12px;
   font-size: 9px;
@@ -386,7 +386,7 @@ button {
 }
 .welcome-row h1 span {
   font-size: 18px;
-  color: #d7a66a;
+  color: #896943;
 }
 .dashboard-grid {
   display: grid;
@@ -419,7 +419,7 @@ button {
   max-width: 410px;
 }
 .hero-kicker {
-  color: #b36a70;
+  color: #9e5d63;
   font-size: 9px;
   font-weight: 800;
   letter-spacing: 1.2px;
@@ -443,7 +443,7 @@ button {
   margin: 12px 0 8px;
 }
 .hero-copy p {
-  color: #858a96;
+  color: #6b6f79;
   font-size: 11px;
   line-height: 1.6;
   max-width: 330px;
@@ -502,7 +502,7 @@ button {
 .hero-stat span:first-child {
   font-size: 7px;
   letter-spacing: 0.7px;
-  color: #9b9faa;
+  color: #6d6f77;
   font-weight: 700;
   display: block;
 }
@@ -513,7 +513,7 @@ button {
 }
 .hero-stat small {
   font-size: 8px;
-  color: #8b909a;
+  color: #6c6f77;
 }
 .hero-stat small .live-dot {
   margin-right: 4px;
@@ -563,25 +563,25 @@ button {
 .team-avatar.rose,
 .detail-game-hero.rose {
   background: #f8eded;
-  color: #be5963;
+  color: #a84a53;
 }
 .game-banner.sand,
 .team-avatar.sand,
 .detail-game-hero.sand {
   background: #f7f2e9;
-  color: #a58658;
+  color: #846b47;
 }
 .game-banner.lavender,
 .team-avatar.lavender,
 .detail-game-hero.lavender {
   background: #f0eff8;
-  color: #77759a;
+  color: #666482;
 }
 .game-banner.blue,
 .team-avatar.blue,
 .detail-game-hero.blue {
   background: #eaf1f4;
-  color: #6a8b99;
+  color: #506c78;
 }
 .game-mark {
   height: 28px;
@@ -598,7 +598,7 @@ button {
   top: 7px;
   border: 0;
   background: #ffffffc9;
-  color: #9da1aa;
+  color: #6d6f76;
   width: 27px;
   height: 27px;
   border-radius: 7px;
@@ -620,13 +620,13 @@ button {
   color: #343843;
 }
 .tournament-title svg {
-  color: #a3a7b0;
+  color: #6d6f76;
 }
 .meta-line {
   display: flex;
   align-items: center;
   gap: 6px;
-  color: #969aa4;
+  color: #6d6f77;
   font-size: 9px;
   margin-top: 8px;
 }
@@ -640,7 +640,7 @@ button {
 }
 .status-label {
   font-size: 9px;
-  color: #718f83;
+  color: #5c746b;
   display: flex;
   align-items: center;
   gap: 5px;
@@ -651,7 +651,7 @@ button {
   color: #464a54;
 }
 .prize-value small {
-  color: #a0a3aa;
+  color: #6d6f74;
   font-size: 8px;
   font-weight: 400;
 }
@@ -665,7 +665,7 @@ button {
   justify-content: space-between;
 }
 .card-overline {
-  color: #999da7;
+  color: #6d6f77;
   font-size: 8px;
   font-weight: 700;
   letter-spacing: 0.9px;
@@ -688,10 +688,10 @@ button {
 .snapshot-number span {
   font: 500 11px "DM Sans";
   letter-spacing: 0;
-  color: #818691;
+  color: #6b6f79;
 }
 .snapshot-note {
-  color: #999da5;
+  color: #6d6f75;
   font-size: 9px;
   margin: 1px 0 13px;
 }
@@ -711,7 +711,7 @@ button {
 }
 .snapshot-metrics span {
   font-size: 8px;
-  color: #9a9ea7;
+  color: #6d6f76;
 }
 .snapshot-metrics b {
   font-size: 12px;
@@ -735,7 +735,7 @@ button {
   gap: 14px;
   border-bottom: 1px solid var(--line);
   font-size: 8px;
-  color: #9a9ea6;
+  color: #6d6f75;
   margin: 0 -1px 4px;
 }
 .standings-tabs span {
@@ -758,12 +758,12 @@ button {
 }
 .rank-number {
   font-size: 9px;
-  color: #979ba5;
+  color: #6d6f77;
   width: 17px;
 }
 .rank-number.first {
   font-weight: 800;
-  color: #c29157;
+  color: #8c683f;
 }
 .team-avatar {
   flex: none;
@@ -787,7 +787,7 @@ button {
 }
 .standing-name small {
   display: block;
-  color: #a1a4ad;
+  color: #6d6f76;
   font-size: 8px;
   margin-top: 3px;
   font-weight: 400;
@@ -798,7 +798,7 @@ button {
 }
 .points small {
   font-weight: 400;
-  color: #a1a4ad;
+  color: #6d6f76;
   font-size: 8px;
   margin-left: 3px;
 }
@@ -824,7 +824,7 @@ button {
   place-items: center;
   background: #f7efef;
   border-radius: 8px;
-  color: #c97980;
+  color: #9c5e64;
 }
 .article-copy {
   display: flex;
@@ -848,13 +848,13 @@ button {
 }
 .article-copy > span {
   font-size: 8px;
-  color: #a0a3ab;
+  color: #6d6f75;
 }
 .article-arrow {
   position: absolute;
   right: 0;
   top: 1px;
-  color: #a1a5ae;
+  color: #6d6f76;
 }
 .tip-card {
   display: flex;
@@ -871,7 +871,7 @@ button {
   place-items: center;
   background: white;
   border-radius: 8px;
-  color: #ac9673;
+  color: #7d6d54;
   flex: none;
 }
 .tip-card b {
@@ -879,7 +879,7 @@ button {
 }
 .tip-card p {
   font-size: 8px;
-  color: #8d9099;
+  color: #6d6f76;
   line-height: 1.5;
   margin: 4px 0;
 }
@@ -922,7 +922,7 @@ button {
 .event-date span {
   font-size: 7px;
   letter-spacing: 0.6px;
-  color: #9296a0;
+  color: #686a72;
   margin-top: 2px;
 }
 .event-copy {
@@ -937,17 +937,17 @@ button {
 }
 .event-copy span {
   font-size: 8px;
-  color: #999da6;
+  color: #6d6f76;
 }
 .event-type {
   font-size: 8px;
-  color: #818691;
+  color: #6b6f79;
   background: #f6f6f7;
   padding: 5px 7px;
   border-radius: 5px;
 }
 .event-row > svg {
-  color: #acafb6;
+  color: #6e6f74;
 }
 .filter-row {
   display: flex;
@@ -965,7 +965,7 @@ button {
 .filter-tabs button {
   border: 0;
   background: transparent;
-  color: #878b96;
+  color: #666973;
   padding: 7px 12px;
   border-radius: 6px;
   font-size: 9px;
@@ -998,11 +998,11 @@ button {
   background: white;
   border: 1px solid #e8e9ed;
   border-radius: 8px;
-  color: #a0a4ad;
+  color: #6d6f76;
 }
 .result-count {
   font-size: 9px;
-  color: #9a9ea7;
+  color: #6d6f76;
 }
 .team-grid {
   display: grid;
@@ -1027,11 +1027,11 @@ button {
 .team-card-rank {
   font-size: 10px;
   font-weight: 700;
-  color: #737885;
+  color: #6b6f7c;
 }
 .team-card-rank small {
   font-size: 7px;
-  color: #a4a7af;
+  color: #6d6f75;
   margin-left: 3px;
 }
 .team-card-title {
@@ -1041,11 +1041,11 @@ button {
   font: 700 12px var(--serif);
 }
 .team-card-title svg {
-  color: #a1a5ae;
+  color: #6d6f76;
 }
 .team-card p {
   font-size: 9px;
-  color: #9b9fa8;
+  color: #6d6f76;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -1073,11 +1073,11 @@ button {
   align-items: center;
 }
 .team-card-footer svg {
-  color: #bd9a69;
+  color: #846b49;
 }
 .roster-status {
   font-size: 8px;
-  color: #7b958b;
+  color: #5f736c;
   display: flex;
   align-items: center;
   gap: 4px;
@@ -1100,7 +1100,7 @@ button {
 }
 .ranking-summary small {
   font-size: 8px;
-  color: #9b9fa8;
+  color: #6d6f76;
   letter-spacing: 0.6px;
   font-weight: 700;
 }
@@ -1110,7 +1110,7 @@ button {
 }
 .ranking-summary > div > span:last-child {
   font-size: 8px;
-  color: #999da6;
+  color: #6d6f76;
 }
 .ranking-table-card {
   padding: 16px 18px;
@@ -1127,7 +1127,7 @@ button {
 }
 .ranking-table-header p {
   font-size: 9px;
-  color: #999da6;
+  color: #6d6f76;
   margin: 5px 0 0;
 }
 .filter-tabs.compact button {
@@ -1146,7 +1146,7 @@ table {
 th {
   font-size: 8px;
   letter-spacing: 0.6px;
-  color: #a0a4ad;
+  color: #6d6f76;
   font-weight: 700;
   padding: 10px;
   border-bottom: 1px solid var(--line);
@@ -1154,18 +1154,18 @@ th {
 td {
   padding: 11px 10px;
   border-bottom: 1px solid #f0f1f3;
-  color: #767b86;
+  color: #6b6f79;
   font-size: 9px;
 }
 tbody tr:last-child td {
   border-bottom: 0;
 }
 .table-rank {
-  color: #858a95;
+  color: #6b6f78;
   font-weight: 600;
 }
 .table-rank.top-rank {
-  color: #bf9157;
+  color: #8b693f;
 }
 .table-team {
   display: flex;
@@ -1183,7 +1183,7 @@ tbody tr:last-child td {
   font-size: 7px;
 }
 .win-rate {
-  color: #668d7f;
+  color: #56766b;
 }
 .align-right {
   text-align: right;
@@ -1198,7 +1198,7 @@ tbody tr:last-child td {
   justify-content: space-between;
   border-top: 1px solid var(--line);
   padding-top: 13px;
-  color: #9b9fa7;
+  color: #6d6f75;
   font-size: 8px;
 }
 .table-footer button {
@@ -1261,7 +1261,7 @@ tbody tr:last-child td {
   bottom: 12px;
   left: 14px;
   font-size: 7px;
-  color: #999ba4;
+  color: #6e6f76;
   letter-spacing: 0.6px;
 }
 .featured-content {
@@ -1282,14 +1282,14 @@ tbody tr:last-child td {
 .news-card-full > p {
   font-size: 10px;
   line-height: 1.65;
-  color: #878c97;
+  color: #6c6f78;
   margin: 0 0 12px;
 }
 .story-meta {
   display: flex;
   align-items: center;
   gap: 7px;
-  color: #999da6;
+  color: #6d6f76;
   font-size: 8px;
 }
 .featured-content .text-link {
@@ -1309,7 +1309,7 @@ tbody tr:last-child td {
   background: linear-gradient(135deg, #f6eded, #f0f0f3);
   display: grid;
   place-items: center;
-  color: #bd7980;
+  color: #976066;
   margin-bottom: 12px;
 }
 .news-card-full h3 {
@@ -1343,7 +1343,7 @@ tbody tr:last-child td {
 .calendar-weekdays span {
   font-size: 8px;
   letter-spacing: 0.5px;
-  color: #a0a3ac;
+  color: #6d6f76;
   padding: 8px;
 }
 .calendar-grid {
@@ -1362,7 +1362,7 @@ tbody tr:last-child td {
   cursor: pointer;
 }
 .calendar-grid button.outside {
-  color: #c4c6cc;
+  color: #6e6f73;
 }
 .calendar-grid button:disabled {
   cursor: default;
@@ -1408,7 +1408,7 @@ tbody tr:last-child td {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  color: #a4a7af;
+  color: #6d6f75;
 }
 .empty-state > b {
   color: #424752;
@@ -1419,7 +1419,7 @@ tbody tr:last-child td {
   font-size: 10px;
   line-height: 1.6;
   margin: 5px 0 14px;
-  color: #9599a3;
+  color: #6d6f77;
 }
 .empty-icon {
   width: 38px;
@@ -1465,7 +1465,7 @@ tbody tr:last-child td {
 .body-copy {
   font-size: 11px;
   line-height: 1.8;
-  color: #828793;
+  color: #6b6f79;
   max-width: 720px;
 }
 .detail-facts {
@@ -1484,7 +1484,7 @@ tbody tr:last-child td {
 .detail-facts small,
 .profile-stat small {
   font-size: 8px;
-  color: #9a9ea7;
+  color: #6d6f76;
   letter-spacing: 0.7px;
   font-weight: 700;
 }
@@ -1509,7 +1509,7 @@ tbody tr:last-child td {
 }
 .detail-side-line small {
   font-size: 8px;
-  color: #9c9fa8;
+  color: #6d6f76;
 }
 .detail-side-line b {
   font-size: 10px;
@@ -1523,7 +1523,7 @@ tbody tr:last-child td {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  color: #858a95;
+  color: #6b6f78;
   font-size: 10px;
   margin-bottom: 17px;
 }
@@ -1553,7 +1553,7 @@ tbody tr:last-child td {
 }
 .team-profile-card p {
   font-size: 9px;
-  color: #9296a0;
+  color: #6d6f77;
   margin: 0 0 8px;
 }
 .profile-stat {
@@ -1567,13 +1567,13 @@ tbody tr:last-child td {
 }
 .profile-stat > span {
   font-size: 8px;
-  color: #8c929b;
+  color: #6b6f76;
   display: flex;
   align-items: center;
   gap: 4px;
 }
 .profile-stat > span svg {
-  color: #6a9a87;
+  color: #527768;
 }
 .results-card {
   padding: 4px 15px;
@@ -1593,14 +1593,14 @@ tbody tr:last-child td {
   font-size: 9px;
 }
 .result-row > span:nth-child(3) {
-  color: #999da6;
+  color: #6d6f76;
 }
 .result-position {
   color: var(--red);
   font-weight: 800;
 }
 .result-points {
-  color: #668d7f;
+  color: #56766b;
   text-align: right;
 }
 .article-detail {
@@ -1624,11 +1624,11 @@ tbody tr:last-child td {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  color: #bd7980;
+  color: #976066;
 }
 .article-cover span {
   font-size: 8px;
-  color: #999ba4;
+  color: #6e6f76;
   letter-spacing: 0.7px;
 }
 .article-lead {
@@ -1666,6 +1666,11 @@ tbody tr:last-child td {
   }
   .hero-card {
     padding: 22px;
+  }
+  .hero-art:before,
+  .hero-art:after {
+    max-width: 100%;
+    max-height: 100%;
   }
   .page-tournament-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1841,10 +1846,14 @@ tbody tr:last-child td {
   .hero-art:before {
     width: 130px;
     height: 130px;
+    max-width: 100%;
+    max-height: 100%;
   }
   .hero-art:after {
     width: 100px;
     height: 100px;
+    max-width: 100%;
+    max-height: 100%;
   }
   .hero-art-circle {
     height: 64px;
@@ -1973,7 +1982,7 @@ tbody tr:last-child td {
     gap: 3px;
     align-items: center;
     justify-content: center;
-    color: #9296a0;
+    color: #6d6f77;
     font-size: 8px;
     font-weight: 600;
     position: relative;
@@ -2229,7 +2238,7 @@ tbody tr:last-child td {
   top: 12px;
   background: white;
   border: 1px solid #eee;
-  color: #8c7a59;
+  color: #7e6d50;
   padding: 4px 6px;
   border-radius: 5px;
   font-size: 7px;
@@ -2243,7 +2252,7 @@ tbody tr:last-child td {
   gap: 8px;
   background: #fbf8f1;
   border: 1px solid #f1eadb;
-  color: #8f8162;
+  color: #7a6e54;
   border-radius: 8px;
   padding: 9px 12px;
   font-size: 9px;
@@ -2275,7 +2284,7 @@ tbody tr:last-child td {
   font-size: 9px;
 }
 .source-tag {
-  color: #8c8068;
+  color: #796e5a;
   background: #f8f5ee;
   border-radius: 5px;
   padding: 6px 8px;
@@ -2285,13 +2294,13 @@ tbody tr:last-child td {
   white-space: nowrap;
 }
 .status-label.status-live-now {
-  color: #bd535d;
+  color: #b44f58;
 }
 .status-label.status-live-now i {
   background: var(--red);
 }
 .status-label.status-completed {
-  color: #8c9099;
+  color: #6c6f76;
 }
 .status-label.status-completed i {
   background: #a8abb2;
@@ -2299,7 +2308,7 @@ tbody tr:last-child td {
 .tournament-card-body > .source-link {
   display: inline-flex;
   margin-top: 8px;
-  color: #a0a3aa;
+  color: #6d6f74;
   font-size: 7px;
 }
 .event-row {
@@ -2321,7 +2330,7 @@ tbody tr:last-child td {
   place-items: center;
   border: 1px solid var(--line);
   border-radius: 7px;
-  color: #9297a1;
+  color: #6c6f77;
   font-size: 12px;
 }
 .event-source:hover {
@@ -2333,6 +2342,10 @@ tbody tr:last-child td {
   border-radius: 9px;
   padding: 2px 12px;
   margin-top: 12px;
+}
+.source-standings:not(.detailed-standings) {
+  max-width: 100%;
+  overflow-x: auto;
 }
 .source-standing-row {
   display: grid;
@@ -2347,7 +2360,7 @@ tbody tr:last-child td {
   border-bottom: 0;
 }
 .source-standing-row > span {
-  color: #969aa4;
+  color: #6d6f77;
 }
 .source-standing-row > b {
   overflow: hidden;
@@ -2355,7 +2368,7 @@ tbody tr:last-child td {
   white-space: nowrap;
 }
 .source-standing-row > small {
-  color: #9297a1;
+  color: #6c6f77;
 }
 .source-standing-row > strong {
   text-align: right;
@@ -2367,7 +2380,7 @@ tbody tr:last-child td {
   align-items: center;
   gap: 6px;
   margin: 12px 3px 0;
-  color: #999da6;
+  color: #6d6f76;
   font-size: 8px;
 }
 .calendar-legend i {
@@ -2386,13 +2399,13 @@ tbody tr:last-child td {
 }
 .no-detail-data {
   padding: 17px 0;
-  color: #9297a1;
+  color: #6c6f77;
   font-size: 10px;
 }
 .detail-data-note {
   font-size: 9px;
   line-height: 1.7;
-  color: #858a95;
+  color: #6b6f78;
   background: #f7f8f9;
   border-radius: 8px;
   padding: 10px 12px;
@@ -2411,7 +2424,7 @@ tbody tr:last-child td {
   margin-top: 10px;
 }
 .ranking-trend {
-  color: #798c83;
+  color: #63736c;
   font-size: 9px;
   font-weight: 700;
 }
@@ -2426,7 +2439,7 @@ tbody tr:last-child td {
 .source-discrepancy {
   font-size: 9px;
   line-height: 1.6;
-  color: #8a7654;
+  color: #7f6d4e;
   background: #fbf8f1;
   border: 1px solid #f1eadb;
   border-radius: 8px;
@@ -2514,7 +2527,7 @@ tbody tr:last-child td {
   font-size: 8px;
   letter-spacing: 1px;
   font-weight: 800;
-  color: #9c8588;
+  color: #7d6b6d;
 }
 .event-logo.lavender,
 .event-identity.lavender {
@@ -2525,13 +2538,13 @@ tbody tr:last-child td {
 .event-logo.blue,
 .event-identity.blue {
   background: #eff4f8;
-  color: #557a96;
+  color: #50738e;
   border-color: #dce8ef;
 }
 .event-logo.sand,
 .event-identity.sand {
   background: #f7f3eb;
-  color: #967d54;
+  color: #826c49;
   border-color: #eae2d1;
 }
 .event-identity-copy {
@@ -2548,12 +2561,12 @@ tbody tr:last-child td {
   align-items: center;
   gap: 7px;
   flex-wrap: wrap;
-  color: #818691;
+  color: #6b6f79;
   font-size: 10px;
   margin: 0;
 }
 .event-identity-copy > p svg {
-  color: #a7aab1;
+  color: #6e6f74;
 }
 .event-identity-copy > p i {
   height: 3px;
@@ -2581,7 +2594,7 @@ tbody tr:last-child td {
 .event-stats-grid small,
 .event-format-panel small {
   font-size: 8px;
-  color: #989ca5;
+  color: #6d6f76;
   font-weight: 700;
   letter-spacing: 0.7px;
 }
@@ -2592,7 +2605,7 @@ tbody tr:last-child td {
 }
 .event-stats-grid span {
   font-size: 8px;
-  color: #9a9ea7;
+  color: #6d6f76;
   line-height: 1.5;
 }
 .event-detail-main {
@@ -2638,7 +2651,7 @@ tbody tr:last-child td {
 .event-format-panel p {
   font-size: 9px;
   line-height: 1.5;
-  color: #878c96;
+  color: #6c6f77;
   margin: 0;
 }
 .event-detail-main .detail-facts {
@@ -2677,10 +2690,10 @@ tbody tr:last-child td {
 }
 .participant-item small {
   font-size: 8px;
-  color: #9599a2;
+  color: #6d6f76;
 }
 .participant-item > svg {
-  color: #9ca0a8;
+  color: #6d6f75;
   flex: none;
 }
 .to-be-announced {
@@ -2691,7 +2704,7 @@ tbody tr:last-child td {
   border: 1px dashed #e4e6ea;
   border-radius: 10px;
   padding: 16px;
-  color: #9da1a9;
+  color: #6d6f75;
 }
 .to-be-announced > div {
   display: flex;
@@ -2704,7 +2717,7 @@ tbody tr:last-child td {
 }
 .to-be-announced span {
   font-size: 9px;
-  color: #969aa3;
+  color: #6d6f76;
   line-height: 1.5;
 }
 .event-info-card {
@@ -2724,7 +2737,7 @@ tbody tr:last-child td {
 .event-side-note > p {
   font-size: 9px;
   line-height: 1.5;
-  color: #9296a0;
+  color: #6d6f77;
   margin: 6px 0 11px;
 }
 .detail-status {
@@ -2755,7 +2768,7 @@ tbody tr:last-child td {
   color: inherit;
 }
 .result-row-link > svg {
-  color: #a2a6ae;
+  color: #6d6f75;
 }
 @media (max-width: 720px) {
   .event-identity {
@@ -2898,7 +2911,7 @@ tbody tr:last-child td {
 }
 .schedule-index {
   font-size: 8px;
-  color: #a1a5ad;
+  color: #6d6f75;
 }
 .schedule-stage {
   display: flex;
@@ -2913,7 +2926,7 @@ tbody tr:last-child td {
 .schedule-stage > small {
   font-size: 8px;
   line-height: 1.5;
-  color: #989ca5;
+  color: #6d6f76;
 }
 .schedule-row > strong {
   font-size: 8px;
@@ -2936,7 +2949,7 @@ tbody tr:last-child td {
   place-items: center;
   border-radius: 12px;
   background: #fff;
-  color: #aa8756;
+  color: #866a44;
 }
 .prize-pool-total > span:last-child {
   display: flex;
@@ -2946,7 +2959,7 @@ tbody tr:last-child td {
 .prize-pool-total small {
   font-size: 8px;
   letter-spacing: 0.6px;
-  color: #9b8b70;
+  color: #7a6e58;
   font-weight: 700;
 }
 .prize-pool-total b {
@@ -2962,14 +2975,14 @@ tbody tr:last-child td {
   padding: 8px 11px;
   border-bottom: 1px solid #f0f1f3;
   font-size: 9px;
-  color: #777c86;
+  color: #6b6f78;
 }
 .distribution-head {
   min-height: 31px;
   background: #fafafb;
   font-size: 7px;
   letter-spacing: 0.5px;
-  color: #9a9ea6;
+  color: #6d6f75;
   font-weight: 700;
 }
 .distribution-row > span:last-child {
@@ -2981,16 +2994,16 @@ tbody tr:last-child td {
   gap: 10px;
   padding: 13px 11px;
   font-size: 9px;
-  color: #898e98;
+  color: #6c6f77;
 }
 .distribution-empty span:last-child {
   white-space: nowrap;
-  color: #a1a5ad;
+  color: #6d6f75;
 }
 .fine-print {
   font-size: 8px;
   line-height: 1.6;
-  color: #9b9fa8;
+  color: #6d6f76;
   margin: 8px 1px 0;
 }
 .wiki-team-list {
@@ -3021,13 +3034,13 @@ tbody tr:last-child td {
 }
 .wiki-team-list small {
   font-size: 7px;
-  color: #969aa3;
+  color: #6d6f76;
   white-space: nowrap;
 }
 .wiki-empty {
   font-size: 9px;
   line-height: 1.6;
-  color: #9a9ea7;
+  color: #6d6f76;
   background: #fafafb;
   border: 1px dashed #e5e7ea;
   border-radius: 8px;
@@ -3045,13 +3058,13 @@ tbody tr:last-child td {
 .event-toc a {
   padding: 6px 8px;
   border-radius: 6px;
-  color: #737883;
+  color: #6b6f7a;
   font-size: 9px;
 }
 .event-toc a:nth-child(n + 5) {
   padding-left: 18px;
   font-size: 8px;
-  color: #999da6;
+  color: #6d6f76;
 }
 .event-toc a:hover {
   background: #fbf5f5;
@@ -3270,7 +3283,7 @@ tbody tr:last-child td {
 .standings-header-row {
   min-height: 30px !important;
   background: #fafafb;
-  color: #9a9ea6;
+  color: #6d6f75;
   letter-spacing: 0.45px;
   font-size: 7px !important;
   font-weight: 700;
@@ -3279,7 +3292,7 @@ tbody tr:last-child td {
 .standings-header-row > small,
 .standings-header-row > strong {
   font-size: 7px !important;
-  color: #9a9ea6 !important;
+  color: #6d6f75 !important;
 }
 .results-snapshot-note {
   margin: 0 0 12px;
@@ -3287,7 +3300,7 @@ tbody tr:last-child td {
   border: 1px solid #eee6df;
   border-radius: 8px;
   background: #fbf8f5;
-  color: #80796f;
+  color: #756e65;
   font-size: 10px;
   line-height: 1.55;
 }
@@ -3312,7 +3325,7 @@ tbody tr:last-child td {
   height: 34px;
   padding: 0 7px;
   border-bottom: 1px solid var(--line);
-  color: #888e99;
+  color: #6b6f78;
   font-size: 8px;
   font-weight: 700;
   letter-spacing: 0.45px;
@@ -3354,7 +3367,7 @@ tbody tr:last-child td {
   white-space: nowrap;
 }
 .source-standings .standing-rank-cell {
-  color: #969ba5;
+  color: #6c6f77;
   font-weight: 600;
 }
 .source-standings .standing-team-cell {
@@ -3383,7 +3396,7 @@ tbody tr:last-child td {
   border-radius: 7px;
 }
 .source-standings .standing-number-cell {
-  color: #737985;
+  color: #6a6f7b;
 }
 .source-standings .standing-points-cell {
   color: #343944;
@@ -3531,7 +3544,7 @@ tbody tr:last-child td {
   }
   .source-standings.detailed-standings .standing-number-cell::before,
   .source-standings.detailed-standings .standing-points-cell::before {
-    color: #9a9fa8;
+    color: #6c6f76;
     font-size: 6px;
     font-weight: 700;
     letter-spacing: 0.2px;
@@ -3605,7 +3618,7 @@ body,
   align-items: center;
   gap: 18px;
   flex-wrap: wrap;
-  color: #9095a0;
+  color: #6c6f78;
   font-size: 10px;
 }
 .footer-brand {
@@ -3661,7 +3674,7 @@ body,
 .not-found-code {
   font: 800 clamp(72px, 15vw, 144px)/0.9 var(--serif);
   letter-spacing: -0.09em;
-  color: #f0dfe1;
+  color: #766d6e;
   margin-bottom: 22px;
 }
 .not-found-page .page-header {
@@ -3716,7 +3729,7 @@ body,
   display: flex;
   align-items: center;
   gap: 9px;
-  color: #858a93;
+  color: #6b6f77;
   font-size: 11px;
   font-weight: 650;
 }
@@ -3743,7 +3756,7 @@ body,
   align-items: baseline;
   gap: 9px;
   margin: 0 0 12px;
-  color: #9499a2;
+  color: #6c6f76;
   font-size: 11px;
 }
 .archive-summary b {
@@ -3768,6 +3781,34 @@ body,
   .archive-series-filter select {
     flex: 1;
     min-width: 0;
+  }
+}
+
+/* The global search shortcut is only advertised where keyboard input is expected. */
+@media (hover: none), (pointer: coarse), (max-width: 720px) {
+  .global-search kbd {
+    display: none;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+}
+
+.global-search:focus-within {
+  outline: 2px solid var(--red);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 .tournament-card .game-banner {
@@ -3831,7 +3872,7 @@ body,
   border: 1px solid #e8eaf0;
   border-radius: 6px;
   background: #f6f7f9;
-  color: #727783;
+  color: #6b6f7b;
   font:
     700 9px/1 "DM Sans",
     Arial,
@@ -3901,7 +3942,7 @@ body,
   margin-top: 8px;
 }
 .tournament-section-count {
-  color: #9599a3;
+  color: #6d6f77;
   font-size: 10px;
   font-weight: 600;
 }
@@ -3910,7 +3951,7 @@ body,
 }
 .tournament-year-group > h3 {
   margin: 0 0 9px;
-  color: #888d97;
+  color: #6c6f77;
   font-size: 10px;
   font-weight: 750;
   letter-spacing: 0.9px;
@@ -3940,5 +3981,30 @@ body,
   }
   .detailed-standings {
     overflow-x: hidden;
+  }
+}
+
+.route-loading {
+  min-height: 280px;
+  display: grid;
+  justify-items: start;
+  align-content: center;
+  gap: 8px;
+  color: var(--muted);
+}
+.route-loading b {
+  color: var(--ink);
+}
+.loading-mark {
+  width: 28px;
+  height: 28px;
+  border: 3px solid #f1dfe1;
+  border-top-color: var(--red);
+  border-radius: 50%;
+  animation: route-spin 0.8s linear infinite;
+}
+@keyframes route-spin {
+  to {
+    transform: rotate(360deg);
   }
 }

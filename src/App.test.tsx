@@ -4,10 +4,41 @@ import { afterEach, describe, expect, it } from "vitest";
 import App from "./App";
 import { teams, tournaments } from "./data";
 import { playerProfiles } from "./data/players";
+import { getSitemapPaths, sitemapRouteExists } from "./sitemap";
 
 afterEach(cleanup);
 
 describe("CORE Esports navigation and workflows", () => {
+  it("supports Ctrl/Cmd+K on desktop while leaving other fields alone", async () => {
+    render(<App />);
+    const otherInput = document.createElement("input");
+    document.body.append(otherInput);
+    otherInput.focus();
+    otherInput.dispatchEvent(
+      new KeyboardEvent("keydown", {
+        key: "k",
+        ctrlKey: true,
+        bubbles: true,
+        cancelable: true,
+      }),
+    );
+    expect(window.location.pathname).toBe("/");
+
+    window.dispatchEvent(
+      new KeyboardEvent("keydown", {
+        key: "k",
+        metaKey: true,
+        bubbles: true,
+        cancelable: true,
+      }),
+    );
+    expect(window.location.pathname).toBe("/search");
+    expect(
+      screen.getByRole("textbox", { name: "Search CORE Esports" }),
+    ).toHaveFocus();
+    otherInput.remove();
+  });
+
   it("navigates between the main sections using the primary navigation", async () => {
     const user = userEvent.setup();
     render(<App />);
@@ -193,12 +224,12 @@ describe("CORE Esports navigation and workflows", () => {
     ).toBeInTheDocument();
   });
 
-  it("resolves every tournament detail route from the dataset", () => {
+  it("resolves every tournament detail route from the dataset", async () => {
     for (const tournament of tournaments) {
       window.history.replaceState({}, "", `/tournaments/${tournament.id}`);
       const { unmount } = render(<App />);
       expect(
-        screen.getByRole("heading", { name: tournament.name, level: 1 }),
+        await screen.findByRole("heading", { name: tournament.name, level: 1 }),
       ).toBeInTheDocument();
       unmount();
     }
@@ -206,6 +237,11 @@ describe("CORE Esports navigation and workflows", () => {
 });
 
 describe("mock data integrity", () => {
+  it("includes only routes backed by app data in the sitemap input", () => {
+    const paths = getSitemapPaths();
+    expect(new Set(paths).size).toBe(paths.length);
+    expect(paths.every(sitemapRouteExists)).toBe(true);
+  });
   it("has unique tournament, team, and player route identifiers", () => {
     for (const [label, ids] of [
       ["tournament", tournaments.map((item) => item.id)],

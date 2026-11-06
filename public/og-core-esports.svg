@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">CORE Esports</title>
+  <desc id="desc">CORE Esports tournaments, teams and rankings</desc>
+  <rect width="1200" height="630" fill="#f5f6f8"/>
+  <rect x="96" y="118" width="1008" height="394" rx="28" fill="#ffffff" stroke="#eceef1" stroke-width="2"/>
+  <rect x="150" y="182" width="92" height="92" rx="22" fill="#faeff0"/>
+  <path d="M174 250v-44h17v14l16-14h20l-23 20 25 24h-22l-16-15v15z" fill="#cf4e5b"/>
+  <text x="150" y="355" fill="#292d38" font-family="Arial, sans-serif" font-size="74" font-weight="700" letter-spacing="-3">CORE</text>
+  <text x="154" y="396" fill="#cf4e5b" font-family="Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="8">ESPORTS</text>
+  <text x="150" y="462" fill="#737987" font-family="Arial, sans-serif" font-size="27">Tournaments · Teams · Rankings</text>
+</svg>

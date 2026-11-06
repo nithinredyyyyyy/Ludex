@@ -39,7 +39,7 @@
 .bgis-toc > small {
   font-size: 8px;
   letter-spacing: 1px;
-  color: #a1a5ae;
+  color: #6d6f76;
   font-weight: 800;
 }
 .bgis-hero h1 {
@@ -50,14 +50,14 @@
 }
 .bgis-hero-copy > p {
   font: 600 12px var(--serif);
-  color: #878c96;
+  color: #6c6f77;
   margin: 0 0 12px;
 }
 .bgis-hero-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 8px 18px;
-  color: #818691;
+  color: #6b6f79;
   font-size: 10px;
 }
 .bgis-hero-meta span {
@@ -104,7 +104,7 @@
 .bgis-lead {
   font-size: 12px;
   line-height: 1.7;
-  color: #737985;
+  color: #6a6f7b;
   margin: 0 0 17px;
 }
 .bgis-info-grid {
@@ -130,7 +130,7 @@
 }
 .bgis-info-item small {
   font-size: 8px;
-  color: #9b9fa8;
+  color: #6d6f76;
   text-transform: uppercase;
   letter-spacing: 0.55px;
 }
@@ -179,13 +179,13 @@
 }
 .bgis-stage-meta span {
   font-size: 8px;
-  color: #9398a2;
+  color: #6c6f77;
 }
 .bgis-stage p,
 .bgis-note {
   font-size: 10px;
   line-height: 1.7;
-  color: #818691;
+  color: #6b6f79;
   margin: 0;
 }
 .bgis-subhead {
@@ -205,7 +205,7 @@
   justify-content: space-between;
   gap: 5px;
   font-size: 9px;
-  color: #727782;
+  color: #6b6f7a;
 }
 .bgis-points-grid b {
   color: #464b56;
@@ -213,7 +213,7 @@
 }
 .bgis-tiebreakers {
   padding-left: 18px;
-  color: #747985;
+  color: #6b6f7b;
   font-size: 10px;
   line-height: 1.9;
 }
@@ -242,7 +242,7 @@
 }
 .bgis-calendar-list small {
   font-size: 9px;
-  color: #9095a0;
+  color: #6c6f78;
   line-height: 1.4;
 }
 .bgis-calendar-list + .bgis-note {
@@ -257,7 +257,7 @@
   border: 1px solid #f1eadb;
   border-radius: 10px;
   background: #fbf8f1;
-  color: #a48a5b;
+  color: #816c48;
 }
 .bgis-prize-total > span {
   display: grid;
@@ -275,7 +275,7 @@
 .bgis-prize-usd {
   margin-left: auto;
   font-size: 9px;
-  color: #898274;
+  color: #746f63;
 }
 .bgis-table {
   border: 1px solid #eceef1;
@@ -291,7 +291,7 @@
   padding: 6px 11px;
   border-bottom: 1px solid #f0f1f3;
   font-size: 10px;
-  color: #8b909a;
+  color: #6c6f77;
 }
 .bgis-table-row:last-child {
   border: 0;
@@ -302,7 +302,7 @@
   font-size: 7px;
   letter-spacing: 0.7px;
   font-weight: 800;
-  color: #9da1aa;
+  color: #6d6f76;
 }
 .bgis-table-row b {
   color: #484d57;
@@ -339,7 +339,7 @@
   padding: 0 9px;
   border: 1px solid #e9eaed;
   border-radius: 8px;
-  color: #969aa3;
+  color: #6d6f76;
   min-width: 180px;
 }
 .bgis-roster-tools input {
@@ -359,7 +359,7 @@
   background: transparent;
   border-radius: 7px;
   padding: 7px 8px;
-  color: #818691;
+  color: #6b6f79;
   font-size: 9px;
   cursor: pointer;
 }
@@ -411,11 +411,11 @@
 .bgis-roster-head small {
   display: block;
   margin-top: 4px;
-  color: #999da6;
+  color: #6d6f76;
   font-size: 8px;
 }
 .bgis-seed {
-  color: #b2b5bc;
+  color: #6e6f74;
   font-size: 8px;
 }
 .bgis-roster-card ul {
@@ -428,7 +428,7 @@
 }
 .bgis-roster-card li {
   font-size: 8px;
-  color: #7c818c;
+  color: #6b6f79;
   overflow-wrap: anywhere;
 }
 .bgis-groups {
@@ -458,7 +458,7 @@
 }
 .bgis-groups li {
   font-size: 8px;
-  color: #818691;
+  color: #6b6f79;
   overflow-wrap: anywhere;
 }
 .bgis-result-block {
@@ -477,12 +477,12 @@
 }
 .bgis-result-title > span {
   font-size: 8px;
-  color: #a0a4ac;
+  color: #6d6f75;
 }
 .bgis-result-block > p {
   font-size: 9px;
   line-height: 1.6;
-  color: #9095a0;
+  color: #6c6f78;
   margin: 5px 0 8px;
 }
 .bgis-result-block .bgis-table-row {
@@ -533,14 +533,14 @@
 .bgis-match-grid span,
 .bgis-match-grid small {
   font-size: 8px;
-  color: #9196a0;
+  color: #6c6f77;
 }
 .bgis-rotation {
   padding: 12px;
   display: grid;
   gap: 7px;
   font-size: 9px;
-  color: #818691;
+  color: #6b6f79;
 }
 .bgis-stat-row {
   display: grid;
@@ -552,18 +552,18 @@
   font-size: 9px;
 }
 .bgis-stat-row > span {
-  color: #999da6;
+  color: #6d6f76;
 }
 .bgis-stat-row > b {
   color: #474c56;
 }
 .bgis-stat-row > strong {
   text-align: right;
-  color: #548879;
+  color: #4a786b;
 }
 .bgis-stat-row > small {
   grid-column: 2/-1;
-  color: #9297a0;
+  color: #6c6f76;
   font-size: 8px;
 }
 .bgis-award-list {
@@ -587,7 +587,7 @@
 }
 .bgis-award-list span {
   font-size: 8px;
-  color: #9297a0;
+  color: #6c6f76;
 }
 .bgis-toc {
   position: sticky;
@@ -610,7 +610,7 @@
   padding: 8px 6px;
   border-radius: 7px;
   font-size: 9px;
-  color: #747985;
+  color: #6b6f7b;
 }
 .bgis-toc nav a:hover {
   background: #fbf4f4;
@@ -618,7 +618,7 @@
 }
 .bgis-toc nav svg {
   flex: none;
-  color: #a4a8b0;
+  color: #6d6f75;
 }
 .bgis-toc-note {
   display: grid;
@@ -631,7 +631,7 @@
 .bgis-toc-note small {
   font-size: 7px;
   letter-spacing: 0.6px;
-  color: #9b8c6d;
+  color: #7a6e56;
   font-weight: 800;
 }
 .bgis-toc-note b {
@@ -641,9 +641,13 @@
 .bgis-toc-note span {
   font-size: 8px;
   line-height: 1.5;
-  color: #8a8d95;
+  color: #6d6f76;
 }
 @media (max-width: 1000px) {
+  .bgis-table-head {
+    font-size: 6px;
+    letter-spacing: 0;
+  }
   .bgis-layout {
     grid-template-columns: minmax(0, 1fr) 190px;
     gap: 10px;
@@ -815,7 +819,7 @@
 }
 .bgis-transfer-note span {
   font-size: 8px;
-  color: #9297a0;
+  color: #6c6f76;
 }
 .bgis-formula {
   margin-top: 11px;
@@ -882,7 +886,7 @@
 .bgis-result-block > summary > svg,
 .bgis-roster-head > svg {
   flex: none;
-  color: #a3a7af;
+  color: #6d6f75;
   transition: transform 0.18s;
 }
 .bgis-stage[open] > summary > svg,
@@ -905,7 +909,7 @@
 .bgis-stage-title > small {
   font-size: 8px;
   line-height: 1.4;
-  color: #9297a0;
+  color: #6c6f76;
 }
 .bgis-stage > p {
   padding: 0 0 12px 37px;
@@ -942,7 +946,7 @@
 .bgis-data-dropdown > summary small,
 .bgis-result-block > summary small {
   font-size: 8px;
-  color: #969ba4;
+  color: #6c6f76;
   line-height: 1.4;
 }
 .bgis-data-dropdown[open] > summary,
@@ -966,7 +970,7 @@
 .bgis-result-content > p {
   font-size: 9px;
   line-height: 1.6;
-  color: #9095a0;
+  color: #6c6f78;
   margin: 9px 0;
 }
 .bgis-result-content .bgis-table-row {
@@ -998,7 +1002,7 @@
 }
 .bgis-groups > summary small {
   font-size: 8px;
-  color: #969ba4;
+  color: #6c6f76;
 }
 .bgis-groups[open] > summary {
   border-bottom: 1px solid #eff0f2;
@@ -1022,7 +1026,7 @@
 }
 .bgis-roster-label > small {
   font-size: 8px;
-  color: #999da6;
+  color: #6d6f76;
 }
 .bgis-roster-card > ul {
   padding-bottom: 3px;
@@ -1104,7 +1108,7 @@
 }
 .bgis-timeline-date small {
   font-size: 7px;
-  color: #a2a6ae;
+  color: #6d6f75;
   font-weight: 500;
 }
 .bgis-timeline-marker {
@@ -1132,7 +1136,7 @@
 .bgis-timeline-copy > small {
   font-size: 8px;
   line-height: 1.45;
-  color: #959aa3;
+  color: #6c6f76;
 }
 @media (max-width: 720px) {
   .bgis-timeline:before {
@@ -1172,14 +1176,14 @@
 }
 .bgis-league-banner > span {
   font-size: 8px;
-  color: #9a8d72;
+  color: #796e59;
   text-align: right;
 }
 .bgis-league-banner > small {
   grid-column: 1/-1;
   font-size: 8px;
   line-height: 1.5;
-  color: #93876f;
+  color: #786e5b;
 }
 .bgis-player-rankings {
   padding: 8px;
@@ -1197,7 +1201,7 @@
 }
 .bgis-player-rankings > article > span {
   font-size: 8px;
-  color: #9ca0a9;
+  color: #6d6f76;
 }
 .bgis-player-rankings > article > b {
   font-size: 9px;
@@ -1205,14 +1209,14 @@
 }
 .bgis-player-rankings > article > strong {
   text-align: right;
-  color: #548879;
+  color: #4a786b;
   font-size: 9px;
 }
 .bgis-player-rankings > article > small {
   grid-column: 2/-1;
   font-size: 8px;
   line-height: 1.45;
-  color: #8f949e;
+  color: #6c6f77;
 }
 @media (max-width: 720px) {
   .bgis-league-banner {

@@ -24,7 +24,7 @@
 }
 .team-profile-card p {
   margin: 5px 0 8px;
-  color: #8b9099;
+  color: #6c6f76;
   font-size: 11px;
 }
 .profile-stat {
@@ -37,7 +37,7 @@
 }
 .profile-stat small,
 .player-stat-grid small {
-  color: #989da6;
+  color: #6c6f76;
   font-size: 8px;
   letter-spacing: 0.7px;
   font-weight: 750;
@@ -49,7 +49,7 @@
 .profile-stat > span,
 .player-stat-grid span {
   font-size: 9px;
-  color: #9196a0;
+  color: #6c6f77;
   line-height: 1.45;
 }
 .profile-results,
@@ -80,7 +80,7 @@
 }
 .profile-result-row > span:nth-child(2) > small {
   font-size: 9px;
-  color: #9297a0;
+  color: #6c6f76;
   line-height: 1.4;
 }
 .profile-result-rank {
@@ -95,12 +95,12 @@
   font-weight: 800;
 }
 .profile-result-row > svg {
-  color: #a0a5ae;
+  color: #6c6f76;
 }
 .profile-note {
   margin: 0;
   padding: 16px;
-  color: #8b909a;
+  color: #6c6f77;
   font-size: 10px;
   line-height: 1.6;
 }
@@ -121,7 +121,7 @@
 .profile-roster-head small,
 .player-hero > div:nth-child(2) > small {
   font-size: 8px;
-  color: #999ea7;
+  color: #6c6f76;
   font-weight: 750;
   letter-spacing: 0.75px;
 }
@@ -131,7 +131,7 @@
 }
 .profile-roster > h3 {
   font-size: 10px;
-  color: #777d87;
+  color: #6a6f78;
   margin: 14px 0 8px;
 }
 .profile-player-grid {
@@ -165,11 +165,11 @@
 }
 .profile-player-card small {
   font-size: 8px;
-  color: #9398a1;
+  color: #6c6f76;
 }
 .profile-player-card > svg {
   flex: none;
-  color: #a0a5ae;
+  color: #6c6f76;
 }
 .profile-player-initials,
 .player-avatar {
@@ -208,7 +208,7 @@
 }
 .player-hero p {
   margin: 0;
-  color: #8a8f99;
+  color: #6c6f77;
   font-size: 10px;
 }
 .player-stat-grid {
@@ -233,7 +233,7 @@
 .profile-achievement em {
   font-size: 8px;
   font-style: normal;
-  color: #98787b;
+  color: #84686b;
   background: #fbf3f3;
   border-radius: 20px;
   padding: 6px 8px;
@@ -254,7 +254,7 @@
   border: 1px solid #e9eaed;
   border-radius: 8px;
   background: #fff;
-  color: #777d87;
+  color: #6a6f78;
   font-size: 9px;
   font-weight: 650;
 }
@@ -267,7 +267,7 @@
 }
 .profile-note-card p {
   margin: 0;
-  color: #858a94;
+  color: #6b6f78;
   font-size: 10px;
   line-height: 1.6;
 }
@@ -290,7 +290,7 @@
 .player-history-table th {
   padding: 10px 9px;
   background: #fafafb;
-  color: #9398a1;
+  color: #6c6f76;
   text-align: left;
   font-size: 7px;
   letter-spacing: 0.5px;
@@ -474,7 +474,7 @@
   border: 1px solid #e8e9ed;
   border-radius: 9px;
   background: #fff;
-  color: #969ba4;
+  color: #6c6f76;
 }
 .rankings-search input {
   width: 100%;
@@ -486,7 +486,7 @@
   font-size: 11px;
 }
 .rankings-search input::placeholder {
-  color: #a3a7af;
+  color: #6d6f75;
 }
 .rankings-search button {
   width: 24px;
@@ -496,7 +496,7 @@
   border: 0;
   border-radius: 6px;
   background: #f5f5f6;
-  color: #777d87;
+  color: #6a6f78;
   cursor: pointer;
 }
 .ranking-range-tabs {
@@ -510,7 +510,7 @@
   border: 1px solid #ebecf0;
   border-radius: 7px;
   background: #fff;
-  color: #787e88;
+  color: #6a6f78;
   font-size: 9px;
   font-weight: 700;
   cursor: pointer;
@@ -542,7 +542,7 @@
 }
 .ranking-mobile-team {
   display: none;
-  color: #8d929b;
+  color: #6c6f76;
   font-size: 8px;
   font-weight: 500;
 }
@@ -629,7 +629,7 @@
 }
 
 .player-history-scroll {
-  overflow-x: hidden;
+  overflow-x: auto;
 }
 .player-history-table {
   table-layout: fixed;
@@ -649,7 +649,7 @@
     flex-wrap: wrap;
   }
   .player-history-scroll {
-    overflow-x: hidden;
+    overflow-x: auto;
   }
   .player-history-table td:first-child,
   .player-history-table td:last-child {
@@ -668,7 +668,7 @@
   gap: 5px;
 }
 .hitboard-splits small {
-  color: #989da6;
+  color: #6c6f76;
   font-size: 8px;
   letter-spacing: 0.6px;
   font-weight: 750;
@@ -680,7 +680,7 @@
 .hitboard-splits p {
   grid-column: 1/-1;
   margin: 0;
-  color: #989da6;
+  color: #6c6f76;
   font-size: 8px;
 }
 @media (max-width: 620px) {
