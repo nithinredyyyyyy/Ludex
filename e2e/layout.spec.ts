@@ -3,6 +3,32 @@ import { expect, test } from "@playwright/test";
 const widths = [360, 375, 390, 430, 768, 1024, 1366, 1920];
 const routes = ["/tournaments/cegc-2026", "/rankings"];
 
+test("BGIS detail fits at tablet width", async ({ page }) => {
+  await page.route("https://**/*", (request) => request.abort());
+  await page.setViewportSize({ width: 768, height: 900 });
+  await page.goto("/tournaments/bgis-2026", { waitUntil: "domcontentloaded" });
+  await expect(page.locator("h1")).toBeVisible();
+  const overflowing = await page.evaluate(() =>
+    [...document.querySelectorAll<HTMLElement>("body *")]
+      .filter((element) => element.scrollWidth > element.clientWidth + 1)
+      .filter((element) => !element.closest("[data-horizontal-scroll]"))
+      .filter((element) => {
+        const style = getComputedStyle(element);
+        return !(
+          style.textOverflow === "ellipsis" && style.overflow === "hidden"
+        );
+      })
+      .map((element) => ({
+        tag: element.tagName,
+        parent: element.parentElement?.outerHTML.slice(0, 600),
+        html: element.outerHTML.slice(0, 400),
+        clientWidth: element.clientWidth,
+        scrollWidth: element.scrollWidth,
+      })),
+  );
+  expect(overflowing, JSON.stringify(overflowing)).toEqual([]);
+});
+
 for (const width of widths) {
   for (const route of routes) {
     test(`${route} has no unintended inner overflow at ${width}px`, async ({

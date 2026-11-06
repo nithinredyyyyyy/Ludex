@@ -16,13 +16,6 @@ export type KiePlayerRanking = {
 
 // KIE team board values supplied for the Nov 6, 2026 snapshot; player board remains the latest verified Oct 18 snapshot.
 // The source exposes 50 rows per page; totals reflect the complete board counts.
-export const kieRankingsSnapshot = {
-  teamDate: "Nov 6, 2026",
-  playerDate: "Oct 18, 2026",
-  teamsTotal: 162,
-  playersTotal: 234,
-};
-
 export const kieTeamRankings: KieTeamRanking[] = [
   { rank: 1, name: "Team SouL", points: 2250, change: "▲1", events: 8 },
   { rank: 2, name: "GodLike Esports", points: 1895, change: "▼1", events: 8 },
@@ -526,3 +519,4 @@ export const kiePlayerRankings: KiePlayerRanking[] = [
     change: "▲24",
   },
 ];
+export { kieRankingsSnapshot } from "./rankings-summary.ts";

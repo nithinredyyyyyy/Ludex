@@ -65,6 +65,8 @@ function TeamMark({ name }: { name: string }) {
         <img
           src={known.logoUrl}
           alt=""
+          width={32}
+          height={32}
           loading="lazy"
           decoding="async"
           onError={() => setFailed(true)}
@@ -163,6 +165,8 @@ export default function BGIS2026Detail({ item, favorite, onFavorite }: Props) {
             <img
               src={item.logoUrl}
               alt="BGIS 2026 tournament logo"
+              width={88}
+              height={88}
               loading="lazy"
               decoding="async"
             />

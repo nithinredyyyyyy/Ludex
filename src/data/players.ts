@@ -1,4 +1,4 @@
-import { kiePlayerRankings } from "./rankings";
+import { kiePlayerRankings } from "./rankings.ts";
 
 export type PlayerAchievement = {
   title: string;

@@ -1,0 +1,28 @@
+# Final build and verification record
+
+Date: 2026-11-06
+
+## Build size
+
+Baseline from `docs/baseline-build.txt`: initial JavaScript bundle 525.95 kB raw / 140.67 kB gzip.
+
+Final verified build output:
+
+| Asset | Raw | Gzip |
+| --- | ---: | ---: |
+| Initial JavaScript entry | 430.88 kB | 125.88 kB |
+| Player data chunk | 68.92 kB | 9.49 kB |
+| BGIS 2026 detail chunk | 25.24 kB | 7.19 kB |
+| Rankings data chunk | 7.68 kB | 1.85 kB |
+| Initial CSS | 80.16 kB | 15.90 kB |
+| BGIS detail CSS | 18.33 kB | 3.74 kB |
+
+The initial JavaScript entry is 95.07 kB raw (18.1%) and 14.79 kB gzip (10.5%) smaller than baseline. The UI is still mostly held in the original `App` module; the BGIS detail and larger player/ranking data are split, but not every page component has its own lazy-loaded route chunk.
+
+## Verification
+
+- `npm run ci`: passed after the final application and responsive CSS changes (typecheck, ESLint, Prettier, Vitest, production build).
+- `npm run test:e2e`: final rerun for the full 112-route × 8-width browser matrix did not produce Playwright output or a results directory within ten minutes and was stopped as inconclusive. A prior run completed all route/width assertions but failed its final console assertion on blocked external network requests; this was isolated in the test to count those network blocks separately.
+- `node scripts/verify-preview.mjs`: passed. Built JS, CSS, favicon, Open Graph image, robots file, Cloudflare configuration files, and all 112 sitemap URLs returned HTTP 200; all sitemap URLs served the SPA index.
+- `npm audit`: 7 moderate advisories remain in the development-only TypeScript ESLint dependency tree (`minimatch`, GHSA-g3hv-75wg-m249); no high or critical findings. npm only offers a major TypeScript ESLint downgrade, so the current working lint stack was retained.
+- Physical iOS/Android devices, screen-reader behavior, Lighthouse, and Cloudflare deployment headers were not exercised in this local audit.
